@@ -1,0 +1,191 @@
+/*
+ * Copyright (C) 2022 xuexiangjys(xuexiangjys@163.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package com.xuexiang.application.dialog;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.xuexiang.application.R;
+
+public class URLConfirmDialog extends Dialog {
+    private Button yes, no;//确定按钮
+    private TextView titleTv;//消息标题文本
+//    private EditText et_url;//输入url
+    private TextView url_confirm;//消息标题文本
+    private String titleStr;//从外界设置的title文本
+    private String confirmStr;
+    private String messageStr;//从外界设置的消息文本
+    //确定文本和取消文本的显示内容
+    private String yesStr, noStr;
+
+    private onNoOnclickListener noOnclickListener;//取消按钮被点击了的监听器
+    private onYesOnclickListener yesOnclickListener;//确定按钮被点击了的监听器
+
+    /**
+     * 设置取消按钮的显示内容和监听
+     *
+     * @param str
+     * @param onNoOnclickListener
+     */
+    public void setNoOnclickListener(String str, onNoOnclickListener onNoOnclickListener) {
+        if (str != null) {
+            noStr = str;
+        }
+        this.noOnclickListener = onNoOnclickListener;
+    }
+
+    /**
+     * 设置确定按钮的显示内容和监听
+     *
+     * @param str
+     * @param onYesOnclickListener
+     */
+    public void setYesOnclickListener(String str, onYesOnclickListener onYesOnclickListener) {
+        if (str != null) {
+            yesStr = str;
+        }
+        this.yesOnclickListener = onYesOnclickListener;
+    }
+
+    public URLConfirmDialog(Context context) {
+        super(context, R.style.DialogTheme);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.url_confirm_dialog);
+        //按空白处不能取消动画
+        setCanceledOnTouchOutside(false);
+
+        //初始化界面控件
+        initView();
+        //初始化界面数据
+        initData();
+        //初始化界面控件的事件
+        initEvent();
+
+    }
+
+    /**
+     * 初始化界面的确定和取消监听器
+     */
+    private void initEvent() {
+        //设置确定按钮被点击后，向外界提供监听
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (yesOnclickListener != null) {
+                    yesOnclickListener.onYesClick();
+                }
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (noOnclickListener != null) {
+                    noOnclickListener.onNoClick();
+                }
+            }
+        });
+    }
+
+    /**
+     * 初始化界面控件的显示数据
+     */
+    private void initData() {
+        //如果用户自定了title和message
+        if (titleStr != null) {
+            titleTv.setText(titleStr);
+            url_confirm.setText(confirmStr);
+        }
+        if (messageStr != null) {
+//            messageTv.setText(messageStr);
+        }
+        //如果设置按钮的文字
+        if (yesStr != null) {
+            yes.setText(yesStr);
+        }
+    }
+
+    /**
+     * 初始化界面控件
+     */
+    private void initView() {
+        yes = (Button) findViewById(R.id.yes);
+        no = (Button) findViewById(R.id.no);
+        titleTv = (TextView) findViewById(R.id.title);
+//        et_url = (EditText) findViewById(R.id.et_url);
+        url_confirm = (TextView) findViewById(R.id.url_confirm);
+    }
+
+    /**
+     * 从外界Activity为Dialog设置标题
+     *
+     * @param title
+     */
+    public void setTitle(String title) {
+        titleStr = title;
+    }
+
+    public void setConfirmURL(String url) {
+        confirmStr = url;
+    }
+
+    /**
+     * 从外界Activity为Dialog设置dialog的message
+     *
+     * @param message
+     */
+    public void setMessage(String message) {
+        messageStr = message;
+    }
+
+    /**
+     * 设置确定按钮和取消被点击的接口
+     */
+    public interface onYesOnclickListener {
+        public void onYesClick();
+    }
+
+    public interface onNoOnclickListener {
+        public void onNoClick();
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        /**
+         * 设置宽度全屏，要设置在show的后面
+         */
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.width= ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height= ViewGroup.LayoutParams.MATCH_PARENT;
+        getWindow().getDecorView().setPadding(0, 0, 0, 0);
+        getWindow().setAttributes(layoutParams);
+    }
+
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#299EE3</color>
+    <color name="colorPrimaryDark">#299EE3</color>
+    <color name="colorAccent">#299EE3</color>
+
+    <color name="config_color_select_bg">#FFF1F1F1</color>
+
+
+    <!--Toast，可自定义喜欢的颜色-->
+    <color name="toast_default_text_color" tools:ignore="PrivateResource">@color/xui_config_color_white</color>
+    <color name="toast_error_color" tools:ignore="PrivateResource">@color/xui_config_color_red</color>
+    <color name="toast_info_color" tools:ignore="PrivateResource">@color/colorAccent</color>
+    <color name="toast_success_color" tools:ignore="PrivateResource">#388E3C</color>
+    <color name="toast_warning_color" tools:ignore="PrivateResource">@color/xui_config_color_waring</color>
+    <color name="toast_normal_tint_color" tools:ignore="PrivateResource">#353A3E</color>
+
+    <color name="app_color_theme_1">#EF5362</color> <!-- Grapefruit -->
+    <color name="app_color_theme_2">#FE6D4B</color> <!-- Bittersweet -->
+    <color name="app_color_theme_3">#FFCF47</color> <!-- Sunflower -->
+    <color name="app_color_theme_4">#9FD661</color> <!-- Grass -->
+    <color name="app_color_theme_5">#3FD0AD</color> <!-- Mint -->
+    <color name="app_color_theme_6">#2BBDF3</color> <!-- Aqua -->
+    <color name="app_color_theme_7">#5A9AEF</color> <!-- Blue Jeans -->
+    <color name="app_color_theme_8">#AC8FEF</color> <!-- Lavender -->
+    <color name="app_color_theme_9">#EE85C1</color> <!-- Pink Rose -->
+
+    <color name="grey">#cccccc</color>
+    <color name="deep_grey">#C0C0C0</color>
+    <color name="light_grey">#F5F5F5</color>
+
+
+    <color name="tab_text_selected">#0084e8</color>
+    <color name="tab_text_normal">#7597b3</color>
+
+    <color name="progressBar_start">#FF8F5D</color>
+    <color name="progressBar_end">#FFC288</color>
+
+</resources>

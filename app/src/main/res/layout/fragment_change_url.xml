@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
+        android:text="@string/title_url"
+        android:textSize="30sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="面象采集设备url地址"
+                android:textSize="17sp" />
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_face_collect_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/tip_please_input_url"
+                app:met_clearButton="true"
+                app:met_allowEmpty="false"
+                app:met_errorEmpty="no empty"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="舌象采集设备url地址"
+                android:textSize="17sp" />
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_tongue_collect_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/tip_please_input_url"
+                app:met_clearButton="true"
+                app:met_allowEmpty="false"
+                app:met_errorEmpty="no empty"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="面象分析设备url地址"
+                android:textSize="17sp"/>
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_face_ana_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/tip_please_input_url"
+                app:met_clearButton="true"
+                app:met_allowEmpty="false"
+                app:met_errorEmpty="no empty"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="舌象分析设备url地址"
+                android:textSize="17sp"/>
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_tongue_ana_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/tip_please_input_url"
+                app:met_clearButton="true"
+                app:met_allowEmpty="false"
+                app:met_errorEmpty="no empty"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+        android:id="@+id/btn_change_url_confirm"
+        style="@style/SuperButton.Primary.Login"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_confirm" />
+
+
+
+</LinearLayout>

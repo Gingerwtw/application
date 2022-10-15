@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--底部导航栏-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tongue_nav_color"
+        android:icon="@drawable/ic_menu_trending"
+        android:title="@string/title_color" />
+
+    <item
+        android:id="@+id/tongue_nav_vein"
+        android:icon="@drawable/ic_menu_person"
+        android:title="@string/title_vein" />
+
+    <item
+        android:id="@+id/tongue_nav_tangible_material"
+        android:icon="@drawable/ic_menu_person"
+        android:title="@string/title_tangible_material" />
+
+    <item
+        android:id="@+id/tongue_nav_geometry"
+        android:icon="@drawable/ic_menu_person"
+        android:title="@string/title_geometry" />
+
+    <item
+        android:id="@+id/tongue_nav_result"
+        android:icon="@drawable/ic_menu_news"
+        android:title="@string/title_result" />
+
+</menu>

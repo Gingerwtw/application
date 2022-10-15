@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12"
+        android:orientation="horizontal"
+        tools:ignore="Suspicious0dp"
+        android:paddingBottom="5dp">
+
+        <com.xuexiang.application.widget.BitmapView
+            android:id="@+id/bv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:text="@string/tongue_cut_tips"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <com.xuexiang.application.widget.MeituView
+            android:id="@+id/mv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="Suspicious0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Primary.Login"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_return"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/btn_back"
+                android:textSize="16sp"/>
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Primary.Login"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_confirm"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/btn_confirm"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,154 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_face_result_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|center"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:text="@string/face_result_title"
+        android:paddingBottom="30dp"
+        android:paddingTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_face_result_describe_title"
+            android:text="@string/face_result_describe_title"
+            android:paddingStart="10dp"
+            android:paddingBottom="10dp"
+            tools:ignore="RtlSymmetry" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_face_result_describe_health"
+                android:text="@string/face_result_health"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_face_result_describe_health_value"
+                android:text="@string/face_result_health_value"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_face_result_describe_subhealth"
+                android:text="@string/face_result_subhealth"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_face_result_describe_subhealth_value"
+                android:text="@string/face_result_subhealth_value"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_face_result_describe_disease"
+                android:text="@string/face_result_describe_disease"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_face_result_describe_disease_value"
+                android:text="@string/face_result_describe_disease_value"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_face_result_summary"
+            android:text="@string/face_result_summary"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/face_result_health_index_describe"
+            android:text="@string/face_result_health_index_describe"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/face_result_health_index"
+                android:text="0"/>
+
+        </LinearLayout>
+
+        <com.xuexiang.xui.widget.progress.HorizontalProgressView
+            android:id="@+id/face_result_progress_xui"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:hpv_start_color="@color/progressBar_start"
+            app:hpv_end_color="@color/progressBar_end"
+            app:hpv_end_progress="100"
+            app:hpv_isTracked="true"
+            app:hpv_track_color="#f4f4f4"
+            app:hpv_track_width="10dp"
+            app:hpv_progress_duration="2600"
+            app:hpv_progress_textColor="#696969"
+            app:hpv_progress_textVisibility="false" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

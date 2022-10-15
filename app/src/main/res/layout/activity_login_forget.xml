@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2022 xuexiangjys(xuexiangjys@163.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+<!--    <androidx.appcompat.widget.AppCompatImageView-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        app:srcCompat="@mipmap/ic_launcher" />-->
+
+
+    <TextView
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:text="@string/title_change_password"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:tint="?attr/colorAccent"
+                app:srcCompat="@drawable/ic_phone" />
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:hint="@string/tip_please_input_phone_number"
+                android:inputType="number"
+                app:met_clearButton="true"
+                app:met_errorMessage="@string/tip_phone_number_error"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/title_phone_number"
+                app:met_regexp="@string/regex_phone_number" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:tint="?attr/colorAccent"
+                app:srcCompat="@drawable/ic_password" />
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:hint="@string/hint_please_input_password"
+                android:inputType="textPassword"
+                app:met_clearButton="false"
+                app:met_errorMessage="@string/login_password_error"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/title_password"
+                app:met_passWordButton="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:tint="?attr/colorAccent"
+                app:srcCompat="@drawable/ic_password" />
+
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/et_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:hint="@string/hint_please_input_password_confirm"
+                android:inputType="textPassword"
+                app:met_clearButton="false"
+                app:met_errorMessage="@string/login_password_error"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="确认密码"
+                app:met_passWordButton="true" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+        android:id="@+id/btn_change"
+        style="@style/SuperButton.Primary.Login"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_change_password" />
+
+
+</LinearLayout>
