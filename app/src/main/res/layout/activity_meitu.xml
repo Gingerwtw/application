@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,17 +21,6 @@
             android:background="@color/white"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/tv_intro"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="center_horizontal|bottom"
-            android:layout_marginBottom="10dp"
-            android:text="@string/tongue_cut_tips"
-            android:textColor="@color/black"
-            android:textSize="17sp" />
-
         <com.xuexiang.application.widget.MeituView
             android:id="@+id/mv_content"
             android:layout_width="match_parent"
@@ -38,15 +28,28 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
+        android:orientation="vertical"
         tools:ignore="Suspicious0dp">
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="@string/tongue_cut_tips"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperButton
@@ -74,6 +77,6 @@
 
 
 
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
