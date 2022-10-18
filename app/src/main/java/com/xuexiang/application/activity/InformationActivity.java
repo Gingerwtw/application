@@ -17,8 +17,6 @@
 
 package com.xuexiang.application.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -26,7 +24,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -35,9 +32,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.xuexiang.application.R;
 import com.xuexiang.application.UrlUtils;
-import com.xuexiang.application.utils.BitmapUtil;
 import com.xuexiang.application.utils.HttpRequestUtil;
 import com.xuexiang.application.utils.XToastUtils;
 import com.xuexiang.application.utils.http.HttpReqData;
@@ -57,7 +55,6 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 public class InformationActivity extends AppCompatActivity {

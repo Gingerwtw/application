@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xuexiang.application.widget.CameraView;
 import com.xuexiang.application.R;
+import com.xuexiang.application.widget.CameraView;
 
 
 

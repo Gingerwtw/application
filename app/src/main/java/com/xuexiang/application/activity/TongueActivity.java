@@ -27,7 +27,6 @@ import com.xuexiang.application.core.BaseActivity;
 import com.xuexiang.application.database.URLDBHelper;
 import com.xuexiang.application.utils.BitmapUtil;
 import com.xuexiang.application.utils.HttpRequestUtil;
-import com.xuexiang.application.utils.XToastUtils;
 import com.xuexiang.application.utils.http.HttpReqData;
 import com.xuexiang.application.utils.http.HttpRespData;
 import com.xuexiang.xaop.annotation.SingleClick;

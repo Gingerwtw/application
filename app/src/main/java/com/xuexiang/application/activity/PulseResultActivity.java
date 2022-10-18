@@ -3,39 +3,23 @@ package com.xuexiang.application.activity;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.drawable.Drawable;
-import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.Utils;
-import com.xuexiang.application.AAChartCoreLib.AAChartCreator.AAChartModel;
-import com.xuexiang.application.AAChartCoreLib.AAChartCreator.AAChartView;
-import com.xuexiang.application.AAChartCoreLib.AAChartCreator.AASeriesElement;
-import com.xuexiang.application.AAChartCoreLib.AAChartEnum.AAChartType;
 import com.xuexiang.application.R;
-import com.xuexiang.application.core.BaseActivity;
 import com.xuexiang.application.widget.DemoBase;
 
 import org.json.JSONException;

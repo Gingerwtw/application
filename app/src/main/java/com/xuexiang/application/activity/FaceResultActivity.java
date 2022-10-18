@@ -3,15 +3,9 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -19,13 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-
-import com.xuexiang.application.FaceColor;
 import com.xuexiang.application.R;
 import com.xuexiang.application.core.BaseActivity;
 

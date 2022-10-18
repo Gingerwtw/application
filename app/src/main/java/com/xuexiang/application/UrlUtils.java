@@ -18,4 +18,8 @@ public class UrlUtils {
         return "http://10.249.45.227:8001/login/";}
     public String getRegister() {
         return "http://10.249.45.227:8001/register/";}
+    public String getAddRecord() {
+        return "http://10.249.45.227:8001/add_diagnostic_record/";}
+    public String getRecord() {
+        return "http://10.249.45.227:8001/get_diagnostic_record/";}
 }

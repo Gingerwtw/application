@@ -4,16 +4,7 @@ package com.xuexiang.application.activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-
-import com.xuexiang.application.FaceColor;
-import com.xuexiang.application.R;
-import com.xuexiang.application.core.BaseActivity;
-import com.xuexiang.application.fragment.faceResult.ColorFragment;
-import com.xuexiang.application.fragment.faceResult.TabSecondFragment;
-import com.xuexiang.application.fragment.faceResult.FaceResultFragment;
-
 import android.os.Bundle;
-
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +14,13 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentTabHost;
+
+import com.xuexiang.application.FaceColor;
+import com.xuexiang.application.R;
+import com.xuexiang.application.core.BaseActivity;
+import com.xuexiang.application.fragment.faceResult.ColorFragment;
+import com.xuexiang.application.fragment.faceResult.FaceResultFragment;
+import com.xuexiang.application.fragment.faceResult.TabSecondFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

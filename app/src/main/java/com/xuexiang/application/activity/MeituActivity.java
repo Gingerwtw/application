@@ -1,40 +1,10 @@
 package com.xuexiang.application.activity;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Map;
-
-import com.example.filedialog.lib.dialog.FileSaveFragment;
-import com.example.filedialog.lib.dialog.FileSelectFragment;
-import com.example.filedialog.lib.dialog.FileSelectFragment.FileSelectCallbacks;
-import com.example.filedialog.lib.dialog.FileSaveFragment.FileSaveCallbacks;
-import com.umeng.commonsdk.debug.W;
-import com.xuexiang.application.R;
-import com.xuexiang.application.UrlUtils;
-import com.xuexiang.application.core.BaseActivity;
-import com.xuexiang.application.database.URLDBHelper;
-import com.xuexiang.application.database.URLInfo;
-import com.xuexiang.application.dialog.URLConfirmDialog;
-import com.xuexiang.application.dialog.URLEditDialog;
-import com.xuexiang.application.dialog.WaitingDialog;
-import com.xuexiang.application.utils.BitmapUtil;
-import com.xuexiang.application.utils.HttpRequestUtil;
-import com.xuexiang.application.utils.XToastUtils;
-import com.xuexiang.application.utils.http.HttpReqData;
-import com.xuexiang.application.utils.http.HttpRespData;
-import com.xuexiang.application.widget.MeituView;
-import com.xuexiang.application.widget.MeituView.ImageChangetListener;
-import com.xuexiang.application.widget.BitmapView;
-import com.xuexiang.xrouter.utils.TextUtils;
-import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
-import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
-import com.xuexiang.xui.widget.toast.XToast;
-
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -54,6 +24,33 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.filedialog.lib.dialog.FileSaveFragment;
+import com.example.filedialog.lib.dialog.FileSaveFragment.FileSaveCallbacks;
+import com.example.filedialog.lib.dialog.FileSelectFragment;
+import com.example.filedialog.lib.dialog.FileSelectFragment.FileSelectCallbacks;
+import com.xuexiang.application.R;
+import com.xuexiang.application.UrlUtils;
+import com.xuexiang.application.core.BaseActivity;
+import com.xuexiang.application.database.URLDBHelper;
+import com.xuexiang.application.database.URLInfo;
+import com.xuexiang.application.utils.BitmapUtil;
+import com.xuexiang.application.utils.HttpRequestUtil;
+import com.xuexiang.application.utils.XToastUtils;
+import com.xuexiang.application.utils.http.HttpReqData;
+import com.xuexiang.application.utils.http.HttpRespData;
+import com.xuexiang.application.widget.BitmapView;
+import com.xuexiang.application.widget.MeituView;
+import com.xuexiang.application.widget.MeituView.ImageChangetListener;
+import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xui.widget.toast.XToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.util.Map;
+import java.util.Objects;
+
 
 public class MeituActivity extends BaseActivity implements
         FileSelectCallbacks, FileSaveCallbacks, ImageChangetListener {
@@ -71,6 +68,8 @@ public class MeituActivity extends BaseActivity implements
 
     private final int ANA_TONGUE_IMAGE = 0;
     private final int ANA_TONGUE_IMAGE_FAILED = 1;
+    private final int ANA_TONGUE_IMAGE_ADD_SUCCESS = 2;
+    private final int ANA_TONGUE_IMAGE_ADD_FAILED = 3;
 
     private String originTongueImagePath;
     private String cutTongueImagePath;
@@ -81,16 +80,19 @@ public class MeituActivity extends BaseActivity implements
     private MaterialDialog.Builder warningDialog;
 
     private UrlUtils UrlInfo = new UrlUtils();
+    SharedPreferences mShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meitu);
 
+        mShared = getSharedPreferences("information", MODE_PRIVATE);
         warningDialog = new MaterialDialog.Builder(this)
                 .title("错误")
                 .content("向舌象分析设备发送网络请求失败")
                 .positiveText("确认");
+
 
 //        confirmDialog = new MaterialDialog.Builder(this)
 //                .positiveText(R.string.lab_yes)
@@ -210,18 +212,61 @@ public class MeituActivity extends BaseActivity implements
         public void handleMessage(Message message){
             if (message.what == ANA_TONGUE_IMAGE){
                 Log.i("respond", message.getData().getString("content"));//打印返回的结果
+                String analyzeResult = message.getData().getString("content");
+                new Thread(){
+                    @Override
+                    public void run(){
+                        super.run();
+                        Message recordmessage = Message.obtain();
+                        Log.i("respond", analyzeResult);
+                        String record = TOJSON(analyzeResult);
+                        HttpReqData req = new HttpReqData();
+                        req.url = UrlInfo.getAddRecord();
+                        req.params = new StringBuffer(record);
 
-                Intent intent = new Intent(MeituActivity.this, TongueResultActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("tongue_result",message.getData().getString("content"));
-                bundle.putString("path",cutTongueImagePath);
-                intent.putExtras(bundle);
+                        HttpRespData resp_data = HttpRequestUtil.postData(req);
+                        String content = resp_data.content;
+                        Log.d("add record result", content);
+                        String status = null;
+                        try {
+                            JSONObject obj = new JSONObject(content);
+                            status = obj.getString("status");
+                        }catch (JSONException e) {
+                            recordmessage.what = ANA_TONGUE_IMAGE_ADD_FAILED;
+                            e.printStackTrace();
+                        }
+                        Log.d("tongue add record res", status);
+                        if (Objects.equals(status, "success!")){
+                            recordmessage.what = ANA_TONGUE_IMAGE_ADD_SUCCESS;
+                        }else{
+                            recordmessage.what = ANA_TONGUE_IMAGE_ADD_FAILED;
+                        }
+                        Bundle bundle = new Bundle();
+                        bundle.putString("content",analyzeResult);
 
-                startActivity(intent);
+                        recordmessage.setData(bundle);
+                        recordHandler.sendMessage(recordmessage);
+                    }
+                }.start();
             }
             else if (message.what == ANA_TONGUE_IMAGE_FAILED){
                 warningDialog.show();
             }
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler recordHandler = new Handler() {
+        public void handleMessage(Message message){
+            if(message.what == ANA_TONGUE_IMAGE_ADD_FAILED){
+                XToastUtils.error("上传诊疗记录失败");
+            }
+            Intent intent = new Intent(MeituActivity.this, TongueResultActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("tongue_result",message.getData().getString("content"));
+            bundle.putString("path",cutTongueImagePath);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     };
 
@@ -381,6 +426,25 @@ public class MeituActivity extends BaseActivity implements
             FileSaveFragment.show(this, "jpg");
         }
         return true;
+    }
+
+    private String TOJSON(String respond){
+        String result = "";
+        try{
+            JSONObject obj = new JSONObject(respond);
+            String health_index = obj.getString("health_index");
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("phone",mShared.getString("phone",""));
+            jsonObject.put("record",health_index+",舌象分析");
+
+            result = jsonObject.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("face record",result);
+        return result;
     }
 
         private void showInputURLDialog(Boolean isURLExited) {

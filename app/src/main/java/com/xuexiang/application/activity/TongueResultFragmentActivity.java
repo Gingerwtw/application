@@ -1,15 +1,7 @@
 package com.xuexiang.application.activity;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTabHost;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -22,32 +14,25 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTabHost;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.xuexiang.application.R;
-import com.xuexiang.application.adapter.MyViewPager2Adapter;
 import com.xuexiang.application.core.BaseActivity;
-import com.xuexiang.application.core.BaseFragment;
-import com.xuexiang.application.databinding.ActivityMainBinding;
 import com.xuexiang.application.databinding.ActivityTongueResultFragmentBinding;
-import com.xuexiang.application.fragment.ChangeURL.ChangeURLFragment;
-import com.xuexiang.application.fragment.Face.FaceFragment;
-import com.xuexiang.application.fragment.Tongue.TongueFragment;
 import com.xuexiang.application.fragment.tongueResult.TabForthFragment;
+import com.xuexiang.application.fragment.tongueResult.TabSecondFragment;
 import com.xuexiang.application.fragment.tongueResult.TabThirdFragment;
 import com.xuexiang.application.fragment.tongueResult.TongueColorFragment;
 import com.xuexiang.application.fragment.tongueResult.TongueResultFragment;
-import com.xuexiang.application.fragment.tongueResult.TabSecondFragment;
 import com.xuexiang.application.utils.BitmapUtil;
-import com.xuexiang.application.utils.XToastUtils;
-import com.xuexiang.xui.adapter.FragmentAdapter;
-import com.xuexiang.xui.utils.ResUtils;
-import com.xuexiang.xui.utils.WidgetUtils;
-import com.xuexiang.xutil.common.CollectionUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TongueResultFragmentActivity extends BaseActivity<ActivityTongueResultFragmentBinding> implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {

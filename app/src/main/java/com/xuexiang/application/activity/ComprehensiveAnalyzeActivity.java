@@ -3,40 +3,16 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.text.InputType;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.xuexiang.application.R;
-import com.xuexiang.application.UrlUtils;
 import com.xuexiang.application.core.BaseActivity;
-import com.xuexiang.application.database.URLDBHelper;
-import com.xuexiang.application.utils.BitmapUtil;
-import com.xuexiang.application.utils.HttpRequestUtil;
-import com.xuexiang.application.utils.http.HttpReqData;
-import com.xuexiang.application.utils.http.HttpRespData;
 import com.xuexiang.xaop.annotation.SingleClick;
-import com.xuexiang.xui.widget.dialog.DialogLoader;
-import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
-import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
-import com.xuexiang.xui.widget.dialog.strategy.impl.MaterialDialogStrategy;
-import com.xuexiang.xui.widget.toast.XToast;
-
-import java.io.ByteArrayOutputStream;
 
 public class ComprehensiveAnalyzeActivity extends BaseActivity implements View.OnClickListener {
 

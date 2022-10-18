@@ -18,7 +18,6 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -30,11 +29,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.clj.fastble.BleManager;
 import com.xuexiang.application.R;
 import com.xuexiang.application.core.BaseActivity;
 import com.xuexiang.application.utils.BitmapUtil;
-import com.xuexiang.xui.widget.button.ButtonView;
 
 import org.json.JSONException;
 import org.json.JSONObject;

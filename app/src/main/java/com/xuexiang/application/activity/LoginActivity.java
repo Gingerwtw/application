@@ -9,26 +9,23 @@ import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import com.xuexiang.application.R;
 import com.xuexiang.application.UrlUtils;
 import com.xuexiang.application.core.BaseActivity;
+import com.xuexiang.application.database.UserDBHelper;
 import com.xuexiang.application.utils.HttpRequestUtil;
 import com.xuexiang.application.utils.XToastUtils;
 import com.xuexiang.application.utils.http.HttpReqData;
 import com.xuexiang.application.utils.http.HttpRespData;
-import com.xuexiang.xui.utils.KeyboardUtils;
 import com.xuexiang.xui.utils.StatusBarUtils;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
-import com.xuexiang.xui.widget.toast.XToast;
+import com.xuexiang.xutil.XUtil;
+import com.xuexiang.xutil.common.ClickUtils;
 import com.xuexiang.xutil.display.Colors;
-
-import com.xuexiang.application.database.UserDBHelper;
-import com.xuexiang.application.database.UserInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +33,7 @@ import org.json.JSONObject;
 /**
  * 登录页面
  */
-public class LoginActivity extends BaseActivity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener, ClickUtils.OnClick2ExitListener {
 
     private EditText editText_phone; // 声明一个编辑框对象
     private EditText editText_password; // 声明一个编辑框对象
@@ -93,8 +90,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private Handler mhandler = new Handler() {
         public void handleMessage(Message message){
             if(message.what == SUBMIT_LOGIN){
-
-
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("information_result",message.getData().getString("content"));
@@ -109,44 +104,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             }
         }
     };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // 获得用户数据库帮助器的一个实例
-        mHelper = UserDBHelper.getInstance(this, 2);
-        // 恢复页面，则打开数据库连接
-        mHelper.openWriteLink();
-    }
-
-    // 从修改密码页面返回登录页面，要清空密码的输入框
-    @Override
-    protected void onRestart() {
-        editText_password.setText("");
-        super.onRestart();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // 暂停页面，则关闭数据库连接
-        mHelper.closeLink();
-    }
-
-    @Override
-    protected boolean isSupportSlideBack() {
-        return false;
-    }
-
-    @Override
-    protected void initStatusBarStyle() {
-        StatusBarUtils.initStatusBarStyle(this, false, Colors.WHITE);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return KeyboardUtils.onDisableBackKeyDown(keyCode) && super.onKeyDown(keyCode, event);
-    }
 
     @Override
     public void onClick(View view){
@@ -240,5 +197,64 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
         Log.d("login",result);
         return result;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 获得用户数据库帮助器的一个实例
+        mHelper = UserDBHelper.getInstance(this, 2);
+        // 恢复页面，则打开数据库连接
+        mHelper.openWriteLink();
+    }
+
+    // 从修改密码页面返回登录页面，要清空密码的输入框
+    @Override
+    protected void onRestart() {
+        editText_password.setText("");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 暂停页面，则关闭数据库连接
+        mHelper.closeLink();
+    }
+
+    @Override
+    protected boolean isSupportSlideBack() {
+        return false;
+    }
+
+    @Override
+    protected void initStatusBarStyle() {
+        StatusBarUtils.initStatusBarStyle(this, false, Colors.WHITE);
+    }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        return KeyboardUtils.onDisableBackKeyDown(keyCode) && super.onKeyDown(keyCode, event);
+//    }
+
+    /**
+     * 菜单、返回键响应
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ClickUtils.exitBy2Click(2000, this);
+        }
+        return true;
+    }
+
+    @Override
+    public void onRetry() {
+        XToastUtils.toast("再按一次退出程序");
+    }
+
+    @Override
+    public void onExit() {
+        XUtil.exitApp();
     }
 }

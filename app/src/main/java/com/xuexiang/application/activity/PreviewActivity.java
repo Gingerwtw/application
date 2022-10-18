@@ -1,10 +1,10 @@
 package com.xuexiang.application.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 

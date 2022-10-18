@@ -34,6 +34,9 @@
         tools:ignore="ExtraText,LockedOrientationActivity"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".activity.RecordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PersonalInformationActivity"
             android:exported="false" />
         <activity
