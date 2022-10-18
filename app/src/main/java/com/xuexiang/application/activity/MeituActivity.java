@@ -24,10 +24,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.filedialog.lib.dialog.FileSaveFragment;
-import com.example.filedialog.lib.dialog.FileSaveFragment.FileSaveCallbacks;
-import com.example.filedialog.lib.dialog.FileSelectFragment;
-import com.example.filedialog.lib.dialog.FileSelectFragment.FileSelectCallbacks;
 import com.xuexiang.application.R;
 import com.xuexiang.application.UrlUtils;
 import com.xuexiang.application.core.BaseActivity;
@@ -52,8 +48,9 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class MeituActivity extends BaseActivity implements
-        FileSelectCallbacks, FileSaveCallbacks, ImageChangetListener {
+//public class MeituActivity extends BaseActivity implements
+//        FileSelectCallbacks, FileSaveCallbacks, ImageChangetListener {
+public class MeituActivity extends BaseActivity implements ImageChangetListener {
     private final static String TAG = "MeituActivity";
     private MeituView mv_content; // 声明一个美图视图对象
     private TextView tv_intro;
@@ -192,18 +189,15 @@ public class MeituActivity extends BaseActivity implements
             }
         });
 
-        btn_return.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isReturn",true);
-                bundle.putString("path","");
-                intent.putExtras(bundle);
+        btn_return.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isReturn",true);
+            bundle.putString("path","");
+            intent.putExtras(bundle);
 
-                setResult(200,intent);
-                finish();
-            }
+            setResult(200,intent);
+            finish();
         });
     }
 
@@ -415,16 +409,16 @@ public class MeituActivity extends BaseActivity implements
 
     // 在选中菜单项时调用
     public boolean onContextItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_file_open) {
-            // 打开文件选择对话框
-            FileSelectFragment.show(this, new String[]{"jpg", "png"}, null);
-        } else if (id == R.id.menu_file_save) {
-            // 获取美图视图处理后的位图
-            mBitmap = mv_content.getCropBitmap();
-            // 打开文件保存对话框
-            FileSaveFragment.show(this, "jpg");
-        }
+//        int id = item.getItemId();
+//        if (id == R.id.menu_file_open) {
+//            // 打开文件选择对话框
+//            FileSelectFragment.show(this, new String[]{"jpg", "png"}, null);
+//        } else if (id == R.id.menu_file_save) {
+//            // 获取美图视图处理后的位图
+//            mBitmap = mv_content.getCropBitmap();
+//            // 打开文件保存对话框
+//            FileSaveFragment.show(this, "jpg");
+//        }
         return true;
     }
 
