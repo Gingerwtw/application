@@ -411,7 +411,7 @@ public class LungVolumeActivity extends BaseActivity implements OnClickListener 
                     lung_volume_scan_btn.setText(getString(R.string.start_scan));
                 }else {
                     lung_volume_scan_btn.setText("蓝牙已连接");
-                    lung_volume_text_hint.setText("按下听诊器的蓝牙按钮，开始传输音频");
+                    lung_volume_text_hint.setText("将听诊器贴近肺部后，按下听诊器的蓝牙按钮，开始传输音频");
                 }
             }
         });

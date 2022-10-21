@@ -11,31 +11,31 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@color/xui_config_color_white"
-            />
-
-
-<!--        <LinearLayout-->
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="?attr/actionBarSize"-->
 <!--            android:background="?attr/colorPrimary"-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:gravity="center_vertical">-->
+<!--            app:popupTheme="@style/AppTheme.PopupOverlay"-->
+<!--            app:titleTextColor="@color/xui_config_color_white"-->
+<!--            />-->
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/main_toolbar_title"-->
-<!--                android:layout_marginStart="50dp"-->
-<!--                android:textSize="23sp"-->
-<!--                android:textColor="@color/white"/>-->
-<!--        </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:id="@+id/toolbar"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_toolbar_title"
+                android:layout_marginStart="50dp"
+                android:textSize="23sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -78,12 +78,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         WidgetUtils.clearActivityBackground(this);
 
         mTitles = ResUtils.getStringArray(R.array.home_titles);
-//        toolbar_title = findViewById(R.id.main_toolbar_title);
-//        toolbar_title.setText(mTitles[0]);
-        binding.includeMain.toolbar.setTitle(mTitles[0]);
+        toolbar_title = findViewById(R.id.main_toolbar_title);
+        toolbar_title.setText(mTitles[0]);
+//        binding.includeMain.toolbar.setTitle(mTitles[0]);
 
-        binding.includeMain.toolbar.inflateMenu(R.menu.menu_main);
-        binding.includeMain.toolbar.setOnMenuItemClickListener(this);
+//        binding.includeMain.toolbar.inflateMenu(R.menu.menu_main);
+//        binding.includeMain.toolbar.setOnMenuItemClickListener(this);
 //        binding.includeMain.toolbar.setNavigationIcon(R.drawable.check_choose);
 
         initHeader();
@@ -136,7 +136,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
     }
 
     protected void initListeners() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.includeMain.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.includeMain.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -168,8 +169,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
             public void onPageSelected(int position) {
 //                XToastUtils.toast(""+position);
                 MenuItem item = binding.includeMain.bottomNavigation.getMenu().getItem(position);
-                binding.includeMain.toolbar.setTitle(item.getTitle());
-//                toolbar_title.setText(item.getTitle());
+//                binding.includeMain.toolbar.setTitle(item.getTitle());
+                toolbar_title.setText(item.getTitle());
                 item.setChecked(true);
                 updateSideNavStatus(item);
             }
@@ -192,8 +193,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         int index = CollectionUtils.arrayIndexOf(mTitles, menuItem.getTitle());
 //        XToastUtils.toast(""+index);
         if (index != -1) {
-            binding.includeMain.toolbar.setTitle(menuItem.getTitle());
-//            toolbar_title.setText(menuItem.getTitle());
+//            binding.includeMain.toolbar.setTitle(menuItem.getTitle());
+            toolbar_title.setText(menuItem.getTitle());
             binding.includeMain.viewPager.setCurrentItem(index, false);
             return true;
         }
@@ -236,8 +237,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int index = CollectionUtils.arrayIndexOf(mTitles, menuItem.getTitle());
         if (index != -1) {
-            binding.includeMain.toolbar.setTitle(menuItem.getTitle());
-//            toolbar_title.setText(menuItem.getTitle());
+//            binding.includeMain.toolbar.setTitle(menuItem.getTitle());
+            toolbar_title.setText(menuItem.getTitle());
             binding.includeMain.viewPager.setCurrentItem(index, false);
 
             updateSideNavStatus(menuItem);
