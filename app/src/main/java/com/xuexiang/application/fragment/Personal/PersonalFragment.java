@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.xuexiang.application.R;
 import com.xuexiang.application.UrlUtils;
+import com.xuexiang.application.activity.ChangeUrlActivity;
 import com.xuexiang.application.activity.LoginActivity;
 import com.xuexiang.application.activity.MainActivity;
 import com.xuexiang.application.activity.PersonalInformationActivity;
@@ -38,7 +39,7 @@ import java.util.Objects;
 
 @Page(anim = CoreAnim.none)
 public class PersonalFragment extends Fragment implements View.OnClickListener {
-    RelativeLayout personal_more_information, personal_record, logout;
+    RelativeLayout personal_more_information, personal_record, logout, change_url;
 
     SharedPreferences mShared;
     private UrlUtils UrlInfo = new UrlUtils();
@@ -61,6 +62,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         personal_more_information = getActivity().findViewById(R.id.personal_more_information);
         personal_record = getActivity().findViewById(R.id.personal_record);
         logout = getActivity().findViewById(R.id.logout);
+        change_url = getActivity().findViewById(R.id.change_url);
 
         username.setText(mShared.getString("name",""));
         phone.setText(mShared.getString("phone",""));
@@ -71,6 +73,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         personal_more_information.setOnClickListener(this);
         personal_record.setOnClickListener(this);
         logout.setOnClickListener(this);
+        change_url.setOnClickListener(this);
     }
 
     @SuppressLint("HandlerLeak")
@@ -99,6 +102,10 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         }
         else if (id == R.id.personal_record){
             getRecord();
+        }
+        else if (id == R.id.change_url){
+            Intent intent = new Intent(getActivity(), ChangeUrlActivity.class);
+            startActivity(intent);
         }
         else {
             Intent intent = new Intent(getActivity(), LoginActivity.class);

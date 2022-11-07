@@ -65,7 +65,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
     private MaterialDialog.Builder warningDialog;
 
     private DialogLoader mDialogLoader;
-    private UrlUtils UrlInfo = new UrlUtils();
+    private UrlUtils urlUtils = new UrlUtils();
     SharedPreferences mShared;
 
     @Override
@@ -150,7 +150,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                         Log.i("respond", analyzeResult);
                         String record = TOJSON(analyzeResult);
                         HttpReqData req = new HttpReqData();
-                        req.url = UrlInfo.getAddRecord();
+                        req.url = urlUtils.getAddRecord();
                         req.params = new StringBuffer(record);
 
                         HttpRespData resp_data = HttpRequestUtil.postData(req);
@@ -209,17 +209,32 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
         // 从采集设备获取图像
         if (id == R.id.btn_face_get) {
             if (btn_get.getText().equals("采集")){
-                getFace();
+                if (urlUtils.get_calibrate()!= null){
+                    getFace();
+                }
+                else{
+                    warningDialog.content("请先设置采集设备地址").show();
+                }
             }
             else{
-                analyseFace();
+                if (urlUtils.get_analyze() != null){
+                    analyseFace();
+                }
+                else{
+                    warningDialog.content("请先设置服务器地址").show();
+                }
             }
         }
         else if (id == R.id.face_toolbar_back){
             FaceActivity.this.finish();
         }
         else if (id == R.id.btn_face_reget){
-            getFace();
+            if (urlUtils.get_calibrate()!= null){
+                getFace();
+            }
+            else{
+                warningDialog.content("请先设置采集设备地址").show();
+            }
         }
     }
 
@@ -240,7 +255,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
                         String data = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
                         //发起网络请求，传入base64数据
-                        String res = HttpRequestUtil.postImage(UrlInfo.getFace_analyze(),data);
+                        String res = HttpRequestUtil.postImage(urlUtils.getFace_analyze(),data);
                         Log.d("respond",res);
 
                         if (res.length() < 200){
@@ -273,7 +288,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                         super.run();
                         Message message = Message.obtain();
 
-                        HttpReqData req_data = new HttpReqData(UrlInfo.getFace_calibrate());
+                        HttpReqData req_data = new HttpReqData(urlUtils.getFace_calibrate());
                         HttpRespData resp_data = HttpRequestUtil.getImage(req_data);
                         Log.d("respond", String.valueOf(resp_data.bitmap));
 

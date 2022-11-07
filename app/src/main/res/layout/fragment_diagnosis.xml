@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp">
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="120dp"
-            android:id="@+id/diagnosis_btn_tongue"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
-            android:text="舌象"
-            android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:id="@+id/diagnosis_btn_face"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
-            android:text="面象"
-            android:textSize="16sp"/>
+            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Primary.Login"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/diagnosis_btn_tongue"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:text="舌象"
+                android:textSize="16sp"/>
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Primary.Login"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/diagnosis_btn_face"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:text="面象"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="80dp">
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Primary.Login"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/diagnosis_btn_lung_volume"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:text="肺音"
+                android:textSize="16sp"/>
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Primary.Login"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/diagnosis_btn_all"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:text="脉象"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp">
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="120dp"
-            android:id="@+id/diagnosis_btn_lung_volume"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
-            android:text="肺音"
-            android:textSize="16sp"/>
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:id="@+id/diagnosis_btn_all"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
-            android:text="脉象"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

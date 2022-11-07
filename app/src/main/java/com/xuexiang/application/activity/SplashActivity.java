@@ -1,5 +1,7 @@
 package com.xuexiang.application.activity;
 
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.xuexiang.application.R;
@@ -22,6 +24,7 @@ public class SplashActivity extends BaseSplashActivity implements CancelAdapt {
     protected long getSplashDurationMillis() {
         return 500;
     }
+    private SharedPreferences mShared = getSharedPreferences("Url", MODE_PRIVATE);;
 
     /**
      * activity启动后的初始化
@@ -55,6 +58,18 @@ public class SplashActivity extends BaseSplashActivity implements CancelAdapt {
         } else {
             ActivityUtils.startActivity(LoginActivity.class);
         }
+//        if (mShared.getString("Opened","") == null){
+//            Log.d("splash", "loginOrGoMainPage: Opened==null");
+//            ActivityUtils.startActivity(ChangeUrlActivity.class);
+//        }
+//        else{
+//            Log.d("splash", "loginOrGoMainPage: Opened=="+mShared.getString("Opened",""));
+//            SharedPreferences.Editor editor = mShared.edit();
+//            editor.putString("Opened","yes");
+//            editor.apply();
+//
+//            ActivityUtils.startActivity(LoginActivity.class);
+//        }
         finish();
     }
 

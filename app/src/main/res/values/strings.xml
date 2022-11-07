@@ -54,7 +54,7 @@
     <string name="tip_please_input_phone_number">请输入手机号码</string>
     <string name="tip_please_input_name">请输入用户名</string>
     <string name="title_phone_number">手机号码</string>
-    <string name="title_url">URL地址</string>
+    <string name="title_url">设备地址</string>
     <string name="title_confirm">确认</string>
     <string name="title_password">密码</string>
     <string name="title_old_password">旧密码</string>
@@ -63,7 +63,7 @@
     <string name="hint_please_input_password">请输入密码</string>
     <string name="hint_please_input_password_confirm">请再次输入密码</string>
     <string name="login_password_error">请输入密码</string>
-    <string name="tip_please_input_url">请输入url地址</string>
+    <string name="tip_please_input_url">请输入设备地址</string>
     <string name="lab_verify_code">验证码</string>
     <string name="tip_password_error">密码必须是8~18位字母和数字的组合！</string>
     <string name="tip_new_password_error">新密码必须是8~18位字母和数字的组合！</string>

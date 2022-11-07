@@ -34,6 +34,9 @@
         tools:ignore="ExtraText,LockedOrientationActivity"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".activity.ChangeUrlActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.RecordActivity"
             android:exported="false" />
         <activity
@@ -93,14 +96,16 @@
             android:name=".activity.PreviewActivity"
             android:exported="false"
             android:label="@string/title_activity_preview"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- 启动页 -->
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- 启动页 -->
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launch.App"
-            android:windowSoftInputMode="adjustPan|stateHidden" /> <!-- 主页 -->
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!-- 主页 -->
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"

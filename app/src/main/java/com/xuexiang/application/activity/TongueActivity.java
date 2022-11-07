@@ -59,6 +59,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
     private final int GET_TONGUE_IMAGE = 0;
     private final int GET_TONGUE_IMAGE_FAILED = 1;
     private int init = 0;
+    private UrlUtils urlUtils = new UrlUtils();
 
     private MaterialDialog.Builder waitingDialog;
     private MaterialDialog.Builder editDialog;
@@ -248,7 +249,12 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
         // 从采集设备获取图像
         if (id == R.id.btn_tongue_get) {
             if (btn_get.getText().equals("采集")){
-                getTongue();
+                if (urlUtils.get_calibrate()!= null){
+                    getTongue();
+                }
+                else{
+                    warningDialog.content("请先设置采集设备地址").show();
+                }
             }
             else{
                 String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
@@ -268,7 +274,12 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
             TongueActivity.this.finish();
         }
         else if (id == R.id.btn_tongue_reget){
-            getTongue();
+            if (urlUtils.get_calibrate()!= null){
+                getTongue();
+            }
+            else{
+                warningDialog.content("请先设置采集设备地址").show();
+            }
         }
     }
 
@@ -288,7 +299,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
                         // 创建一个HTTP请求对象
 //                                HttpReqData req_data = new HttpReqData(urlInfo.User_URL);
 
-                        HttpReqData req_data = new HttpReqData(new UrlUtils().getTongue_calibrate());
+                        HttpReqData req_data = new HttpReqData(urlUtils.getTongue_calibrate());
                         // 发送HTTP请求信息，并获得HTTP应答对象
                         HttpRespData resp_data = HttpRequestUtil.getImage(req_data);
 

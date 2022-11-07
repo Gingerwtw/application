@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.xuexiang.application.R;
 import com.xuexiang.application.UrlUtils;
@@ -30,6 +31,8 @@ import com.xuexiang.xutil.display.Colors;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 /**
  * 登录页面
  */
@@ -40,6 +43,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
     private Button btn_forget; // 声明一个按钮控件对象
     private Button btn_login;
     private Button btn_register;
+    private LinearLayout linearLayout_login, linearLayout_change;
     private boolean bRemember = false; // 是否记住密码
 
     private String phone;
@@ -53,37 +57,39 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
     private final int SUBMIT_LOGIN = 1;
     private int SUBMIT_LOGIN_FAIL = 0;
 
+    private UrlUtils urlUtils = new UrlUtils();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        openPage(LoginFragment.class, getIntent().getExtras());
         setContentView(R.layout.activity_login);
+        mShared = getSharedPreferences("information", MODE_PRIVATE);
 
-        editText_phone = findViewById(R.id.et_phone_number);
-        editText_password = findViewById(R.id.et_password);
-        btn_forget = (Button) findViewById(R.id.tv_forget_password);
-        btn_register = (Button)findViewById(R.id.tv_register);
-        btn_login = findViewById(R.id.btn_login);
-        Button btn_skip = findViewById(R.id.btn_skip);
-        btn_skip.setOnClickListener(this);
+            editText_phone = findViewById(R.id.et_phone_number);
+            editText_password = findViewById(R.id.et_password);
+            btn_forget = (Button) findViewById(R.id.tv_forget_password);
+            btn_register = (Button)findViewById(R.id.tv_register);
+            btn_login = findViewById(R.id.btn_login);
+            Button btn_change_url = findViewById(R.id.btn_change_url);
+            btn_change_url.setOnClickListener(this);
 
-        editText_phone.setText(getIntent().getStringExtra("phone"));
+            editText_phone.setText(getIntent().getStringExtra("phone"));
 
 //        editText_phone.addTextChangedListener(new HideTextWatcher(editText_phone));
 //        editText_password.addTextChangedListener(new HideTextWatcher(editText_password));
 
-        btn_forget.setOnClickListener(this);
-        btn_login.setOnClickListener(this);
-        btn_register.setOnClickListener(this);
+            btn_forget.setOnClickListener(this);
+            btn_login.setOnClickListener(this);
+            btn_register.setOnClickListener(this);
 
-        btn_forget.setVisibility(View.INVISIBLE);
+            btn_forget.setVisibility(View.INVISIBLE);
 //        btn_skip.setVisibility(View.INVISIBLE);
 
-        warningDialog = new MaterialDialog.Builder(LoginActivity.this)
-                .title("错误")
-                .positiveText("确认");
+            warningDialog = new MaterialDialog.Builder(LoginActivity.this)
+                    .title("错误")
+                    .positiveText("确认");
 
-        mShared = getSharedPreferences("information", MODE_PRIVATE);
     }
 
     @SuppressLint("HandlerLeak")
@@ -107,8 +113,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 
     @Override
     public void onClick(View view){
-        phone = editText_phone.getText().toString();
         if (view.getId() == R.id.tv_forget_password){
+            phone = editText_phone.getText().toString();
             Intent intent = new Intent(LoginActivity.this, LoginForgetActivity.class);
             intent.putExtra("phone", phone);
             startActivityForResult(intent, 1);
@@ -118,50 +124,65 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
             startActivity(intent);
         }
         if (view.getId() == R.id.btn_login){
-            password = editText_password.getText().toString();
+            phone = editText_phone.getText().toString();
+            if (urlUtils.get_analyze() != null){
+                login();
+            }
+            else{
+                warningDialog.content("请先设置服务器地址").show();
+            }
+        }
+        if (view.getId() == R.id.btn_change_url){
+            Intent intent = new Intent(LoginActivity.this, ChangeUrlActivity.class);
+            startActivity(intent);
+        }
+    }
 
-            String result = ToJSON();
+    private void login(){
+        password = editText_password.getText().toString();
 
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
+        String result = ToJSON();
 
-                    HttpReqData req = new HttpReqData();
-                    req.url = UrlInfo.getLogin();
-                    req.params = new StringBuffer(result);
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
 
-                    HttpRespData resp_data = HttpRequestUtil.postData(req);
-                    Log.d("login result", String.valueOf(resp_data));
-                    String content = resp_data.content;
-                    Log.d("login result", content);
+                HttpReqData req = new HttpReqData();
+                req.url = UrlInfo.getLogin();
+                req.params = new StringBuffer(result);
 
-                    Message message = Message.obtain();
-                    try {
-                        JSONObject obj = new JSONObject(content);
-                        String status = obj.getString("login_status");
+                HttpRespData resp_data = HttpRequestUtil.postData(req);
+                Log.d("login result", String.valueOf(resp_data));
+                String content = resp_data.content;
+                Log.d("login result", content);
 
-                        SharedPreferences.Editor editor = mShared.edit();
-                        editor.putString("phone",obj.getString("phone"));
-                        editor.putString("name", obj.getString("name"));
-                        editor.putString("gender", obj.getString("gender"));
-                        editor.putString("birthday", obj.getString("birthday"));
-                        editor.putString("profession", obj.getString("profession"));
-                        editor.putString("medical_history", obj.getString("medical_history"));
-                        editor.apply();
+                Message message = Message.obtain();
+                try {
+                    JSONObject obj = new JSONObject(content);
+                    String status = obj.getString("login_status");
 
-                        if (status.equals("success")){
-                            message.what = SUBMIT_LOGIN;
-                        }else{
-                            message.what = SUBMIT_LOGIN_FAIL;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    SharedPreferences.Editor editor = mShared.edit();
+                    editor.putString("phone",obj.getString("phone"));
+                    editor.putString("name", obj.getString("name"));
+                    editor.putString("gender", obj.getString("gender"));
+                    editor.putString("birthday", obj.getString("birthday"));
+                    editor.putString("profession", obj.getString("profession"));
+                    editor.putString("medical_history", obj.getString("medical_history"));
+                    editor.apply();
+
+                    if (status.equals("success")){
+                        message.what = SUBMIT_LOGIN;
+                    }else{
                         message.what = SUBMIT_LOGIN_FAIL;
                     }
-                    mhandler.sendMessage(message);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    message.what = SUBMIT_LOGIN_FAIL;
                 }
-            }.start();
+                mhandler.sendMessage(message);
+            }
+        }.start();
 
 //            UserInfo userInfo = mHelper.queryByPhone(phone);
 //            if (userInfo == null){
@@ -174,13 +195,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                startActivity(intent);
 //            }
-
-
-        }
-        if (view.getId() == R.id.btn_skip){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
     }
 
     public String ToJSON(){
@@ -197,6 +211,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 
         Log.d("login",result);
         return result;
+    }
+
+    public void refresh(){
+        onCreate(null);
     }
 
     @Override
@@ -257,4 +275,5 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
     public void onExit() {
         XUtil.exitApp();
     }
+
 }

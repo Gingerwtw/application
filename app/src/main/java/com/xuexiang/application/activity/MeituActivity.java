@@ -76,7 +76,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
     private MaterialDialog.Builder waitingDialog;
     private MaterialDialog.Builder warningDialog;
 
-    private UrlUtils UrlInfo = new UrlUtils();
+    private UrlUtils urlUtils = new UrlUtils();
     SharedPreferences mShared;
 
     @Override
@@ -145,47 +145,52 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBitmap = mv_content.getCropBitmap();
-                String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
-                String image_name = "result_tongue.png";
-                cutTongueImagePath = String.format("%s/%s", image_path, image_name);
-                BitmapUtil.saveBitmap(cutTongueImagePath, mBitmap, "jpg", 80);
+                if (urlUtils.get_analyze()!= null){
+                    mBitmap = mv_content.getCropBitmap();
+                    String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
+                    String image_name = "result_tongue.png";
+                    cutTongueImagePath = String.format("%s/%s", image_path, image_name);
+                    BitmapUtil.saveBitmap(cutTongueImagePath, mBitmap, "jpg", 80);
 
-                //将位图转为字节数组后再转为base64
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                mBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);   //切割图
+                    //将位图转为字节数组后再转为base64
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);   //切割图
 //                bitmap_content.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);     //原图
 
-                waitingDialog.content("舌象分析中，请稍等")
-                        .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialogInterface) {
-                        final MaterialDialog dialog = (MaterialDialog)dialogInterface;
-                        new Thread(){
-                            @Override
-                            public void run() {
-                                super.run();
-                                Message message = Message.obtain();
+                    waitingDialog.content("舌象分析中，请稍等")
+                            .showListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialogInterface) {
+                                    final MaterialDialog dialog = (MaterialDialog)dialogInterface;
+                                    new Thread(){
+                                        @Override
+                                        public void run() {
+                                            super.run();
+                                            Message message = Message.obtain();
 
-                                String data = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-                                //发起网络请求，传入base64数据
-                                String res = HttpRequestUtil.postImage(UrlInfo.getTongue_analyze(),data);
-                                Log.d("res",res+res.length());
-                                if (res.length() < 100){
-                                    message.what = ANA_TONGUE_IMAGE_FAILED;
+                                            String data = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+                                            //发起网络请求，传入base64数据
+                                            String res = HttpRequestUtil.postImage(urlUtils.getTongue_analyze(),data);
+                                            Log.d("res",res+res.length());
+                                            if (res.length() < 100){
+                                                message.what = ANA_TONGUE_IMAGE_FAILED;
+                                            }
+                                            else{
+                                                message.what = ANA_TONGUE_IMAGE;
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("content",res);
+                                                message.setData(bundle);
+                                            }
+                                            mhandler.sendMessage(message);
+                                            dialog.dismiss();
+                                        }
+                                    }.start();
                                 }
-                                else{
-                                    message.what = ANA_TONGUE_IMAGE;
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("content",res);
-                                    message.setData(bundle);
-                                }
-                                mhandler.sendMessage(message);
-                                dialog.dismiss();
-                            }
-                        }.start();
-                    }
-                }).show() ;
+                            }).show() ;
+                }
+                else{
+                    warningDialog.content("请先设置服务器地址").show();
+                }
             }
         });
 
@@ -215,7 +220,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
                         Log.i("respond", analyzeResult);
                         String record = TOJSON(analyzeResult);
                         HttpReqData req = new HttpReqData();
-                        req.url = UrlInfo.getAddRecord();
+                        req.url = urlUtils.getAddRecord();
                         req.params = new StringBuffer(record);
 
                         HttpRespData resp_data = HttpRequestUtil.postData(req);
