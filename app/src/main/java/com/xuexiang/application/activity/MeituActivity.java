@@ -77,14 +77,22 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
     private MaterialDialog.Builder warningDialog;
 
     private UrlUtils urlUtils = new UrlUtils();
-    SharedPreferences mShared;
+    SharedPreferences mShared, imageShared;
+
+    private JSONObject substance;
+    private JSONObject coating;
+    private String health_index;
+    private String coating_img;
+    private String constitution;
+    private String advice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meitu);
-
         mShared = getSharedPreferences("information", MODE_PRIVATE);
+        imageShared = getSharedPreferences("image", MODE_PRIVATE);
+
         warningDialog = new MaterialDialog.Builder(this)
                 .title("错误")
                 .content("向舌象分析设备发送网络请求失败")
@@ -145,7 +153,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (urlUtils.get_analyze()!= null){
+                if (urlUtils.getTongue_analyze()!= null){
                     mBitmap = mv_content.getCropBitmap();
                     String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
                     String image_name = "result_tongue.png";
@@ -260,14 +268,43 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
             if(message.what == ANA_TONGUE_IMAGE_ADD_FAILED){
                 XToastUtils.error("上传诊疗记录失败");
             }
+            initResult(message.getData().getString("content"));
             Intent intent = new Intent(MeituActivity.this, TongueResultActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("tongue_result",message.getData().getString("content"));
+//            bundle.putString("tongue_result",message.getData().getString("content"));
+            bundle.putString("substance", String.valueOf(substance));
+            bundle.putString("coating", String.valueOf(coating));
+            bundle.putString("health_index",health_index);
+            bundle.putString("constitution",constitution);
+            bundle.putString("advice",advice);
             bundle.putString("path",cutTongueImagePath);
             intent.putExtras(bundle);
             startActivity(intent);
         }
     };
+
+    private void initResult(String json){
+        Bundle bundle=getIntent().getExtras();
+
+//        String respondJson = bundle.getString("tongue_result");
+        try {
+            JSONObject obj = new JSONObject(json);
+            substance = obj.getJSONObject("substance");
+            coating = obj.getJSONObject("coating");
+            health_index = obj.getString("health_index");
+            coating_img = obj.getString("coating_img");
+            constitution = obj.getString("constitution");
+            advice = obj.getString("advice");
+
+            Log.d("health_index",health_index);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SharedPreferences.Editor editor = imageShared.edit();
+        editor.putString("image", coating_img);
+        editor.apply();
+    }
 
     @Override
     public void onResume() {

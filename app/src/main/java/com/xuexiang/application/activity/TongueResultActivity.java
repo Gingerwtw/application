@@ -18,6 +18,8 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -40,13 +42,16 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
 
     private Button show_coating;
     private Button hide_coating;
+    TextView tongue_result_constitution;
 
-    private JSONObject substance;
-    private JSONObject coating;
+//    private JSONObject substance;
+//    private JSONObject coating;
     private String health_index;
     private String coating_img;
     private String constitution;
     private String advice;
+
+    private String substance, coating;
 
     private Bitmap originBitmap;
 
@@ -61,13 +66,19 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
     int tongue_substance_color_count = 0;
     int tongue_coating_color_count = 0;
 
+    SharedPreferences imageShared;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tongue_result);
+        imageShared = getSharedPreferences("image", MODE_PRIVATE);
 
         initResult();
         initView();
+
+        tongue_result_constitution = findViewById(R.id.tongue_result_constitution);
+        tongue_result_constitution.setOnClickListener(this);
     }
 
 
@@ -78,26 +89,39 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
 //            startActivityForResult(intent,200);
             finish();
         }
+        else if (view.getId() == R.id.tongue_result_constitution){
+            Intent intent = new Intent(this,DetailDiseaseActivity.class);
+            Bundle bundle=new Bundle();
+            //传递的数据自己定义，我这边传递的数据是id为tv_content的文本内容
+            bundle.putString("tongue_result_constitution",tongue_result_constitution.getText().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     private void initResult(){
         Bundle bundle=getIntent().getExtras();
+        substance = bundle.getString("substance");
+        coating = bundle.getString("coating");
+        health_index = bundle.getString("health_index");
+        constitution = bundle.getString("constitution");
+        advice = bundle.getString("advice");
 
-        String respondJson = bundle.getString("tongue_result");
-        try {
-            JSONObject obj = new JSONObject(respondJson);
-            substance = obj.getJSONObject("substance");
-            coating = obj.getJSONObject("coating");
-            health_index = obj.getString("health_index");
-            coating_img = obj.getString("coating_img");
-            constitution = obj.getString("constitution");
-            advice = obj.getString("advice");
-
-            Log.d("health_index",health_index);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        String respondJson = bundle.getString("tongue_result");
+//        try {
+//            JSONObject obj = new JSONObject(respondJson);
+//            substance = obj.getJSONObject("substance");
+//            coating = obj.getJSONObject("coating");
+//            health_index = obj.getString("health_index");
+//            coating_img = obj.getString("coating_img");
+//            constitution = obj.getString("constitution");
+//            advice = obj.getString("advice");
+//
+//            Log.d("health_index",health_index);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void initView(){
@@ -105,7 +129,8 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
         btn_back.setOnClickListener(this);
 
         ImageView tongue_result_image = findViewById(R.id.tongue_image);
-        Bitmap resultBitmap = Base64tobitmep(coating_img);
+//        Bitmap resultBitmap = Base64tobitmep(coating_img);
+        Bitmap resultBitmap = Base64tobitmep(imageShared.getString("image",""));
         originBitmap = BitmapUtil.openBitmap(getIntent().getStringExtra("path"));
         tongue_result_image.setImageBitmap(resultBitmap);
 
@@ -160,65 +185,67 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
     @SuppressLint("DefaultLocale")
     private void handleJSON(){
         try {
-            if (substance.has("Cyan")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Cyan")) +"%";
+            JSONObject obj = new JSONObject(substance);
+            if (obj.has("Cyan")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Cyan")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "青色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Red")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Red")) +"%";
+            if (obj.has("Red")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Red")) +"%";
 //                tongue_substance_color[tongue_substance_color_count] = (int)substance.getDouble("Red")+"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "青色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Light purple")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Light purple")) +"%";
+            if (obj.has("Light purple")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Light purple")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "淡紫色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Deep red")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Deep red")) +"%";
+            if (obj.has("Deep red")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Deep red")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "绛红色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Light red")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Light red")) +"%";
+            if (obj.has("Light red")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Light red")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "淡红色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Blue")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Blue")) +"%";
+            if (obj.has("Blue")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Blue")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "蓝色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Light blue")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Light blue")) +"%";
+            if (obj.has("Light blue")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Light blue")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "淡蓝色";
                 tongue_substance_color_count++;
             }
-            if (substance.has("Purple")){
-                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",substance.getDouble("Purple")) +"%";
+            if (obj.has("Purple")){
+                tongue_substance_color[tongue_substance_color_count] = String.format("%.2f",obj.getDouble("Purple")) +"%";
                 tongue_substance_color_name[tongue_substance_color_count] = "紫色";
                 tongue_substance_color_count++;
             }
 
-            if(coating.has("Black")){
-                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",coating.getDouble("Black"))+"%";
+            obj = new JSONObject(coating);
+            if(obj.has("Black")){
+                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",obj.getDouble("Black"))+"%";
                 tongue_coating_color_name[tongue_coating_color_count] = "黑色";
                 tongue_coating_color_count++;
             }
-            if(coating.has("Gray")){
-                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",coating.getDouble("Gray"))+"%";
+            if(obj.has("Gray")){
+                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",obj.getDouble("Gray"))+"%";
                 tongue_coating_color_name[tongue_coating_color_count] = "灰色";
                 tongue_coating_color_count++;
             }
-            if(coating.has("White")){
-                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",coating.getDouble("White"))+"%";
+            if(obj.has("White")){
+                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",obj.getDouble("White"))+"%";
                 tongue_coating_color_name[tongue_coating_color_count] = "白色";
                 tongue_coating_color_count++;
             }
-            if(coating.has("Yellow")){
-                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",coating.getDouble("Yellow"))+"%";
+            if(obj.has("Yellow")){
+                tongue_coating_color[tongue_coating_color_count] = String.format("%.2f",obj.getDouble("Yellow"))+"%";
                 tongue_coating_color_name[tongue_coating_color_count] = "黄色";
                 tongue_coating_color_count++;
             }

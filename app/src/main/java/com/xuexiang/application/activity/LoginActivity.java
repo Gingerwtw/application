@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 
     private final int SUBMIT_LOGIN = 1;
     private int SUBMIT_LOGIN_FAIL = 0;
+    private final int SUBMIT_LOGIN_WRONG_SERVER = 2;
 
     private UrlUtils urlUtils = new UrlUtils();
 
@@ -108,6 +109,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 //                warningDialog.content("登录失败").show();
                 XToastUtils.error("手机号不存在或密码错误");
             }
+            else if (message.what == SUBMIT_LOGIN_WRONG_SERVER){
+//                warningDialog.content("登录失败").show();
+                XToastUtils.error("服务器地址错误");
+            }
         }
     };
 
@@ -125,7 +130,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
         }
         if (view.getId() == R.id.btn_login){
             phone = editText_phone.getText().toString();
-            if (urlUtils.get_analyze() != null){
+            if (urlUtils.getLogin() != null){
                 login();
             }
             else{
@@ -157,28 +162,34 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
                 String content = resp_data.content;
                 Log.d("login result", content);
 
+
                 Message message = Message.obtain();
-                try {
-                    JSONObject obj = new JSONObject(content);
-                    String status = obj.getString("login_status");
+                if (content.equals("")){
+                    message.what = SUBMIT_LOGIN_WRONG_SERVER;
+                }
+                else{
+                    try {
+                        JSONObject obj = new JSONObject(content);
+                        String status = obj.getString("login_status");
 
-                    SharedPreferences.Editor editor = mShared.edit();
-                    editor.putString("phone",obj.getString("phone"));
-                    editor.putString("name", obj.getString("name"));
-                    editor.putString("gender", obj.getString("gender"));
-                    editor.putString("birthday", obj.getString("birthday"));
-                    editor.putString("profession", obj.getString("profession"));
-                    editor.putString("medical_history", obj.getString("medical_history"));
-                    editor.apply();
+                        SharedPreferences.Editor editor = mShared.edit();
+                        editor.putString("phone",obj.getString("phone"));
+                        editor.putString("name", obj.getString("name"));
+                        editor.putString("gender", obj.getString("gender"));
+                        editor.putString("birthday", obj.getString("birthday"));
+                        editor.putString("profession", obj.getString("profession"));
+                        editor.putString("medical_history", obj.getString("medical_history"));
+                        editor.apply();
 
-                    if (status.equals("success")){
-                        message.what = SUBMIT_LOGIN;
-                    }else{
+                        if (status.equals("success")){
+                            message.what = SUBMIT_LOGIN;
+                        }else{
+                            message.what = SUBMIT_LOGIN_FAIL;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                         message.what = SUBMIT_LOGIN_FAIL;
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    message.what = SUBMIT_LOGIN_FAIL;
                 }
                 mhandler.sendMessage(message);
             }

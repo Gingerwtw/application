@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="12"
+        android:layout_weight="10"
         android:orientation="horizontal"
         tools:ignore="Suspicious0dp"
         android:paddingBottom="5dp">
@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperButton
                 style="@style/SuperButton.Primary.Login"

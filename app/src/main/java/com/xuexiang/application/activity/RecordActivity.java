@@ -52,6 +52,7 @@ public class RecordActivity extends AppCompatActivity {
 
             RecordAdapter adapter = new RecordAdapter(RecordActivity.this, R.layout.record_item, recordList);
             listView.setAdapter(adapter);
+            RecordAdapter.setListViewHeightBasedOnChildren(listView);
         }
 
         btn_back = findViewById(R.id.record_toolbar_back);

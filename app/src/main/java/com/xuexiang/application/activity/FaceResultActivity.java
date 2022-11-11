@@ -3,11 +3,11 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,18 +20,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FaceResultActivity extends BaseActivity implements View.OnClickListener {
-    private JSONObject middle_top;
-    private JSONObject middle_middle;
-    private JSONObject middle_bottom;
-    private JSONObject left;
-    private JSONObject right;
+//    private JSONObject middle_top;
+//    private JSONObject middle_middle;
+//    private JSONObject middle_bottom;
+//    private JSONObject left;
+//    private JSONObject right;
     private String health_index;
     private String correct_face_img;
+
+    private String middle_top,middle_middle, middle_bottom, left, right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face_result);
+        SharedPreferences imageShared = getSharedPreferences("image", MODE_PRIVATE);
 
         initResult();
         initMiddleTop();
@@ -41,7 +44,8 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         initRight();
 
         ImageView face_result_image = findViewById(R.id.face_image);
-        Bitmap bitmap = Base64tobitmep(correct_face_img);
+//        Bitmap bitmap = Base64tobitmep(correct_face_img);
+        Bitmap bitmap = Base64tobitmep(imageShared.getString("image",""));
         face_result_image.setImageBitmap(bitmap);
         face_result_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
@@ -54,24 +58,31 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
 
     private void initResult(){
         Bundle bundle=getIntent().getExtras();
+        middle_top = bundle.getString("middle_top");
+        middle_middle = bundle.getString("middle_middle");
+        middle_bottom = bundle.getString("middle_bottom");
+        left = bundle.getString("left");
+        right = bundle.getString("right");
+        health_index = bundle.getString("health_index");
+//
+//        String respondJson = bundle.getString("face_result");
+//        try {
+//            JSONObject obj = new JSONObject(respondJson);
+//            middle_top = obj.getJSONObject("middle_top");
+//            middle_middle = obj.getJSONObject("middle_middle");
+//            middle_bottom = obj.getJSONObject("middle_bottom");
+//            left = obj.getJSONObject("left");
+//            right = obj.getJSONObject("right");
+//            health_index = obj.getString("health_index");
+//            correct_face_img = obj.getString("correct_face_img");
+//
+//            Log.d("health_index",health_index);
+//            Log.d("color_middle_top", String.valueOf(middle_top));
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
-        String respondJson = bundle.getString("face_result");
-        try {
-            JSONObject obj = new JSONObject(respondJson);
-            middle_top = obj.getJSONObject("middle_top");
-            middle_middle = obj.getJSONObject("middle_middle");
-            middle_bottom = obj.getJSONObject("middle_bottom");
-            left = obj.getJSONObject("left");
-            right = obj.getJSONObject("right");
-            health_index = obj.getString("health_index");
-            correct_face_img = obj.getString("correct_face_img");
-
-            Log.d("health_index",health_index);
-            Log.d("color_middle_top", String.valueOf(middle_top));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -84,12 +95,13 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         TextView tv_face_middle_top_color6 = findViewById(R.id.tv_face_middle_top_color6);
 
         try {
-            tv_face_middle_top_color1.setText((int)middle_top.getDouble("black") +"%");
-            tv_face_middle_top_color2.setText((int)middle_top.getDouble("yellow") +"%");
-            tv_face_middle_top_color3.setText((int)middle_top.getDouble("light_yellow") +"%");
-            tv_face_middle_top_color4.setText((int)middle_top.getDouble("gray") +"%");
-            tv_face_middle_top_color5.setText((int)middle_top.getDouble("deep_red") +"%");
-            tv_face_middle_top_color6.setText((int)middle_top.getDouble("red") +"%");
+            JSONObject obj = new JSONObject(middle_top);
+            tv_face_middle_top_color1.setText((int)obj.getDouble("black") +"%");
+            tv_face_middle_top_color2.setText((int)obj.getDouble("yellow") +"%");
+            tv_face_middle_top_color3.setText((int)obj.getDouble("light_yellow") +"%");
+            tv_face_middle_top_color4.setText((int)obj.getDouble("gray") +"%");
+            tv_face_middle_top_color5.setText((int)obj.getDouble("deep_red") +"%");
+            tv_face_middle_top_color6.setText((int)obj.getDouble("red") +"%");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -105,12 +117,13 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         TextView tv_face_middle_middle_color6 = findViewById(R.id.tv_face_middle_middle_color6);
 
         try {
-            tv_face_middle_middle_color1.setText((int)middle_middle.getDouble("black") +"%");
-            tv_face_middle_middle_color2.setText((int)middle_middle.getDouble("yellow") +"%");
-            tv_face_middle_middle_color3.setText((int)middle_middle.getDouble("light_yellow") +"%");
-            tv_face_middle_middle_color4.setText((int)middle_middle.getDouble("gray") +"%");
-            tv_face_middle_middle_color5.setText((int)middle_middle.getDouble("deep_red") +"%");
-            tv_face_middle_middle_color6.setText((int)middle_middle.getDouble("red") +"%");
+            JSONObject obj = new JSONObject(middle_middle);
+            tv_face_middle_middle_color1.setText((int)obj.getDouble("black") +"%");
+            tv_face_middle_middle_color2.setText((int)obj.getDouble("yellow") +"%");
+            tv_face_middle_middle_color3.setText((int)obj.getDouble("light_yellow") +"%");
+            tv_face_middle_middle_color4.setText((int)obj.getDouble("gray") +"%");
+            tv_face_middle_middle_color5.setText((int)obj.getDouble("deep_red") +"%");
+            tv_face_middle_middle_color6.setText((int)obj.getDouble("red") +"%");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -126,12 +139,13 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         TextView tv_face_middle_bottom_color6 = findViewById(R.id.tv_face_middle_bottom_color6);
 
         try {
-            tv_face_middle_bottom_color1.setText((int)middle_bottom.getDouble("black") +"%");
-            tv_face_middle_bottom_color2.setText((int)middle_bottom.getDouble("yellow") +"%");
-            tv_face_middle_bottom_color3.setText((int)middle_bottom.getDouble("light_yellow") +"%");
-            tv_face_middle_bottom_color4.setText((int)middle_bottom.getDouble("gray") +"%");
-            tv_face_middle_bottom_color5.setText((int)middle_bottom.getDouble("deep_red") +"%");
-            tv_face_middle_bottom_color6.setText((int)middle_bottom.getDouble("red") +"%");
+            JSONObject obj = new JSONObject(middle_bottom);
+            tv_face_middle_bottom_color1.setText((int)obj.getDouble("black") +"%");
+            tv_face_middle_bottom_color2.setText((int)obj.getDouble("yellow") +"%");
+            tv_face_middle_bottom_color3.setText((int)obj.getDouble("light_yellow") +"%");
+            tv_face_middle_bottom_color4.setText((int)obj.getDouble("gray") +"%");
+            tv_face_middle_bottom_color5.setText((int)obj.getDouble("deep_red") +"%");
+            tv_face_middle_bottom_color6.setText((int)obj.getDouble("red") +"%");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -147,12 +161,13 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         TextView tv_face_left_color6 = findViewById(R.id.tv_face_left_color6);
 
         try {
-            tv_face_left_color1.setText((int)left.getDouble("black") +"%");
-            tv_face_left_color2.setText((int)left.getDouble("yellow") +"%");
-            tv_face_left_color3.setText((int)left.getDouble("light_yellow") +"%");
-            tv_face_left_color4.setText((int)left.getDouble("gray") +"%");
-            tv_face_left_color5.setText((int)left.getDouble("deep_red") +"%");
-            tv_face_left_color6.setText((int)left.getDouble("red") +"%");
+            JSONObject obj = new JSONObject(left);
+            tv_face_left_color1.setText((int)obj.getDouble("black") +"%");
+            tv_face_left_color2.setText((int)obj.getDouble("yellow") +"%");
+            tv_face_left_color3.setText((int)obj.getDouble("light_yellow") +"%");
+            tv_face_left_color4.setText((int)obj.getDouble("gray") +"%");
+            tv_face_left_color5.setText((int)obj.getDouble("deep_red") +"%");
+            tv_face_left_color6.setText((int)obj.getDouble("red") +"%");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -168,12 +183,13 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         TextView tv_face_right_color6 = findViewById(R.id.tv_face_right_color6);
 
         try {
-            tv_face_right_color1.setText((int)right.getDouble("black") +"%");
-            tv_face_right_color2.setText((int)right.getDouble("yellow") +"%");
-            tv_face_right_color3.setText((int)right.getDouble("light_yellow") +"%");
-            tv_face_right_color4.setText((int)right.getDouble("gray") +"%");
-            tv_face_right_color5.setText((int)right.getDouble("deep_red") +"%");
-            tv_face_right_color6.setText((int)right.getDouble("red") +"%");
+            JSONObject obj = new JSONObject(right);
+            tv_face_right_color1.setText((int)obj.getDouble("black") +"%");
+            tv_face_right_color2.setText((int)obj.getDouble("yellow") +"%");
+            tv_face_right_color3.setText((int)obj.getDouble("light_yellow") +"%");
+            tv_face_right_color4.setText((int)obj.getDouble("gray") +"%");
+            tv_face_right_color5.setText((int)obj.getDouble("deep_red") +"%");
+            tv_face_right_color6.setText((int)obj.getDouble("red") +"%");
         } catch (JSONException e) {
             e.printStackTrace();
         }

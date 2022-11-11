@@ -160,7 +160,7 @@ public class InformationActivity extends AppCompatActivity {
     private Handler mhandler = new Handler() {
         public void handleMessage(Message message){
             if(message.what == SUBMIT_INFORMATION){
-                Intent intent = new Intent(InformationActivity.this, QuestionnaireActivity.class);
+                Intent intent = new Intent(InformationActivity.this, QuestionnaireInfoActivity.class);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("information_result",message.getData().getString("content"));
 //                bundle.putInt("select",message.getData().getInt("select"));

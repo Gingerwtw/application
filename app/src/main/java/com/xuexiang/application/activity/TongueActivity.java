@@ -249,7 +249,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
         // 从采集设备获取图像
         if (id == R.id.btn_tongue_get) {
             if (btn_get.getText().equals("采集")){
-                if (urlUtils.get_calibrate()!= null){
+                if (urlUtils.getTongue_calibrate()!= null){
                     getTongue();
                 }
                 else{
@@ -274,7 +274,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
             TongueActivity.this.finish();
         }
         else if (id == R.id.btn_tongue_reget){
-            if (urlUtils.get_calibrate()!= null){
+            if (urlUtils.getTongue_calibrate()!= null){
                 getTongue();
             }
             else{

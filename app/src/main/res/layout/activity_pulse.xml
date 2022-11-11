@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PulseActivity"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:id="@+id/toolbar"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent"
+        tools:context=".activity.PulseActivity"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pulse_toolbar_back"
-            android:src="@drawable/ic_web_back"
-            android:layout_marginStart="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:id="@+id/toolbar"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/face_toolbar_title"
-            android:text="脉象分析"
-            android:layout_marginStart="30dp"
-            android:textSize="23sp"
-            android:textColor="@color/white"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pulse_toolbar_back"
+                android:src="@drawable/ic_web_back"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/face_toolbar_title"
+                android:text="脉象分析"
+                android:layout_marginStart="30dp"
+                android:textSize="23sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+            android:id="@+id/btn_pulse"
+            style="@style/SuperButton.Primary.Login"
+            android:layout_marginTop="100dp"
+            android:text="脉象分析" />
+
+
     </LinearLayout>
+</ScrollView>
 
-    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-        android:id="@+id/btn_pulse"
-        style="@style/SuperButton.Primary.Login"
-        android:layout_marginTop="100dp"
-        android:text="脉象分析" />
-
-
-</LinearLayout>

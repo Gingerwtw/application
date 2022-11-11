@@ -22,6 +22,7 @@ public class URLInfo {
     public long rowid;
     public String User_URL;
     public String usage;   // 0表示面象采集设备地址，1表示面像分析设备地址，2表示舌像分析地址，3表示舌象分析地址
+                           // 0表示采集设备地址，1表示服务器地址
 
     public URLInfo() {
         rowid = 0L;

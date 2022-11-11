@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RecordActivity"
-    android:orientation="vertical"
     android:background="@color/white">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:id="@+id/record_toolbar"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content"
+        tools:context=".activity.RecordActivity"
+        android:orientation="vertical"
+        android:background="@color/white">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/record_toolbar_back"
-            android:src="@drawable/ic_web_back"
-            android:layout_marginStart="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:id="@+id/record_toolbar"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/record_toolbar_back"
+                android:src="@drawable/ic_web_back"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tongue_toolbar_title"
+                android:text="诊查记录"
+                android:layout_marginStart="30dp"
+                android:textSize="23sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/record_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tongue_toolbar_title"
-            android:text="诊查记录"
-            android:layout_marginStart="30dp"
-            android:textSize="23sp"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            android:text="未查询到就诊记录"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:layout_below="@+id/record_toolbar"
+            android:visibility="invisible"/>
 
-    <TextView
-        android:id="@+id/record_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="未查询到就诊记录"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:layout_below="@+id/record_toolbar"
-        android:visibility="invisible"/>
+        <ListView
+            android:id="@+id/record_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/record_toolbar"
+            android:layout_marginTop="20dp"/>
 
-    <ListView
-        android:id="@+id/record_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/record_toolbar"
-        android:layout_marginTop="20dp"/>
+    </RelativeLayout>
+</ScrollView>
 
-</RelativeLayout>
+
+
+
+
+
+

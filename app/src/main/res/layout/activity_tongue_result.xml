@@ -250,7 +250,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="体质特征"
-                    android:id="@+id/tongue_result_constitution"/>
+                    android:id="@+id/tongue_result_constitution"
+                    android:textColor="@color/xui_btn_blue_normal_color"/>
             </LinearLayout>
 
             <LinearLayout

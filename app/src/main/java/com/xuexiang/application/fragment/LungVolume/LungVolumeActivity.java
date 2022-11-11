@@ -197,6 +197,7 @@ public class LungVolumeActivity extends BaseActivity implements OnClickListener 
 
         ListView listView_device = (ListView) findViewById(R.id.list_device);
         listView_device.setAdapter(mDeviceAdapter);
+        listView_device.setVisibility(View.INVISIBLE);
 
         warningDialog = new MaterialDialog.Builder(LungVolumeActivity.this)
                 .positiveText("确认");

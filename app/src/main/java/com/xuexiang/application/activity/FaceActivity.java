@@ -66,7 +66,12 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
     private DialogLoader mDialogLoader;
     private UrlUtils urlUtils = new UrlUtils();
-    SharedPreferences mShared;
+    private SharedPreferences mShared, imageShared;
+
+    private JSONObject middle_top, middle_middle, middle_bottom, left, right;
+    private String health_index, correct_face_img;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
         mDialogLoader = DialogLoader.getInstance().setIDialogStrategy(new MaterialDialogStrategy());
         mShared = getSharedPreferences("information", MODE_PRIVATE);
+        imageShared = getSharedPreferences("image", MODE_PRIVATE);
 
         warningDialog = new MaterialDialog.Builder(FaceActivity.this)
                 .title("错误")
@@ -193,9 +199,16 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
             if(message.what == ANA_FACE_IMAGE_ADD_FAILED){
                 XToastUtils.error("上传诊疗记录失败");
             }
+            initResult(message.getData().getString("content"));
             Intent intent = new Intent(FaceActivity.this, FaceResultActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("face_result",message.getData().getString("content"));
+//            bundle.putString("face_result",message.getData().getString("content"));
+            bundle.putString("middle_top", String.valueOf(middle_top));
+            bundle.putString("middle_middle", String.valueOf(middle_middle));
+            bundle.putString("middle_bottom", String.valueOf(middle_bottom));
+            bundle.putString("left", String.valueOf(left));
+            bundle.putString("right", String.valueOf(right));
+            bundle.putString("health_index", String.valueOf(health_index));
             intent.putExtras(bundle);
             Log.i("face","start activity");
             startActivity(intent);
@@ -209,7 +222,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
         // 从采集设备获取图像
         if (id == R.id.btn_face_get) {
             if (btn_get.getText().equals("采集")){
-                if (urlUtils.get_calibrate()!= null){
+                if (urlUtils.getFace_calibrate()!= null){
                     getFace();
                 }
                 else{
@@ -217,7 +230,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
             else{
-                if (urlUtils.get_analyze() != null){
+                if (urlUtils.getFace_analyze() != null){
                     analyseFace();
                 }
                 else{
@@ -229,13 +242,37 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
             FaceActivity.this.finish();
         }
         else if (id == R.id.btn_face_reget){
-            if (urlUtils.get_calibrate()!= null){
+            if (urlUtils.getFace_calibrate()!= null){
                 getFace();
             }
             else{
                 warningDialog.content("请先设置采集设备地址").show();
             }
         }
+    }
+
+    private void initResult(String json){
+        Bundle bundle=getIntent().getExtras();
+
+        try {
+            JSONObject obj = new JSONObject(json);
+            middle_top = obj.getJSONObject("middle_top");
+            middle_middle = obj.getJSONObject("middle_middle");
+            middle_bottom = obj.getJSONObject("middle_bottom");
+            left = obj.getJSONObject("left");
+            right = obj.getJSONObject("right");
+            health_index = obj.getString("health_index");
+            correct_face_img = obj.getString("correct_face_img");
+
+            Log.d("health_index",health_index);
+            Log.d("color_middle_top", String.valueOf(middle_top));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SharedPreferences.Editor editor = imageShared.edit();
+        editor.putString("image", correct_face_img);
+        editor.apply();
     }
 
     private void analyseFace(){

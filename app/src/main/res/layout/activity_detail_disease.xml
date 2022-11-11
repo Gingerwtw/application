@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+<!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:id="@+id/knowledge_graph_search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            app:iconifiedByDefault="false"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/knowledge_graph_hint"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/knowledge_graph_search"-->
+<!--            android:layout_marginTop="100dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:text="请在上方搜索框内输入想搜索的疾病名称" />-->
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_name_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="病名"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="名字"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_description_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_name_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="描述"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="描述"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_category_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_description_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="分类"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="category" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_prevent_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_category_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="预防"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_prevent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="prevent"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_cause_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/knowledge_graph_prevent_Linear"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="病因" />
+
+            <TextView
+                android:id="@+id/knowledge_graph_cause"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="cause"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_symptom_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_cause_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="症状"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_symptom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="symptom"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_yibao_status_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_symptom_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="医保"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_yibao_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+
+                android:text="医保" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_get_prob_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_yibao_status_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="患病率"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_get_prob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="get_prob" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_get_way_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_get_prob_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="传播途径"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_get_way"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="get_way" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_accompany_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_get_way_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="并发症"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_accompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="accompany" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_cure_department_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_accompany_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="科室"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_cure_department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="cure_department" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_cure_way_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_cure_department_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="疗法"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_cure_way"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="cure_way" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_cure_last_time_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_cure_way_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="疗程"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_cure_last_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="cure_last_time" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_cured_prob_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_cure_last_time_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="治愈率"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_cured_prob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="cured_prob" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_cost_money_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_cured_prob_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="花费"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_cost_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="cost_money"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_check_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_cost_money_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="检查方法"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="check"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_recmmand_drug_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_check_Linear"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="推荐药物"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_recmmand_drug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="recmmand_drug"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/knowledge_graph_drug_detail_Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/knowledge_graph_recmmand_drug_Linear"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="具体药物"/>
+
+            <TextView
+                android:id="@+id/knowledge_graph_drug_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="drug_detail"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</ScrollView>
