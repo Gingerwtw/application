@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         Fragment[] fragments = new Fragment[]{
 
                 new DiagnosisFragment(),
-                new AdviserFragment(),
+//                new AdviserFragment(),
                 new KnowledgeGraphFragment(),
                 new PersonalFragment(),
         };

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DiagnosisActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:id="@+id/toolbar"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/diagnosis_toolbar_back"
+            android:src="@drawable/ic_web_back"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/face_toolbar_title"
+            android:text="综合分析"
+            android:layout_marginStart="30dp"
+            android:textSize="23sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/diagnosis_face_tongue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="50dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/diagnosis_constitution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体质"/>
+
+            <TextView
+                android:id="@+id/diagnosis_constitution_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="78dp"
+                android:layout_toEndOf="@+id/diagnosis_constitution"
+                android:text="0.56" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/diagnosis_health_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="健康指数" />
+
+            <TextView
+                android:id="@+id/diagnosis_health_index_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_toEndOf="@+id/diagnosis_health_index"
+                android:text="0.56" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/diagnosis_face_tongue_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="未完成舌象和面象分析"
+        android:paddingStart="10dp"
+        android:paddingTop="50dp"
+        android:layout_below="@+id/toolbar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="肺音分析"
+        android:paddingStart="10dp"
+        android:paddingTop="50dp"
+        android:layout_below="@+id/diagnosis_face_tongue"/>
+
+</RelativeLayout>

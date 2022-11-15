@@ -92,7 +92,6 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
         else if (view.getId() == R.id.tongue_result_constitution){
             Intent intent = new Intent(this,DetailDiseaseActivity.class);
             Bundle bundle=new Bundle();
-            //传递的数据自己定义，我这边传递的数据是id为tv_content的文本内容
             bundle.putString("tongue_result_constitution",tongue_result_constitution.getText().toString());
             intent.putExtras(bundle);
             startActivity(intent);

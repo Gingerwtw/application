@@ -1,14 +1,19 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -55,6 +60,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
     Bitmap bitmap = null;
 
     private URLDBHelper mHelper; // 声明一个用户数据库的帮助器对象
+    private Vibrator vibrator;
 
     private final int GET_TONGUE_IMAGE = 0;
     private final int GET_TONGUE_IMAGE_FAILED = 1;
@@ -111,6 +117,8 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
                 })
                 .positiveText("确认")
                 .negativeText("取消");
+
+        vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
@@ -284,6 +292,10 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
     }
 
     private void getTongue(){
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(this, notification);
+        r.play();
+
         waitingDialog.content("舌象采集中，请稍候")
         .showListener(new DialogInterface.OnShowListener() {
             @Override
@@ -294,8 +306,6 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
                     public void run() {
                         super.run();
                         Message message = Message.obtain();
-
-
                         // 创建一个HTTP请求对象
 //                                HttpReqData req_data = new HttpReqData(urlInfo.User_URL);
 
@@ -319,12 +329,14 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
                             message.setData(bundle);
                         }
                         mhandler.sendMessage(message);
-
                         dialog.dismiss();
+                        long[] pattern = { 10L, 60L }; // An array of longs of times for which to turn the vibrator on or off.
+                        vibrator.vibrate(pattern, -1); // The index into pattern at which to repeat, or -1 if you don't want to repeat.
                     }
                 }.start();
             }
         }).show() ;
+//        r.stop();
     }
 
 }

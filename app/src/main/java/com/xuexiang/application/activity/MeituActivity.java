@@ -77,7 +77,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
     private MaterialDialog.Builder warningDialog;
 
     private UrlUtils urlUtils = new UrlUtils();
-    SharedPreferences mShared, imageShared;
+    SharedPreferences mShared, imageShared, tongueShared;
 
     private JSONObject substance;
     private JSONObject coating;
@@ -92,6 +92,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
         setContentView(R.layout.activity_meitu);
         mShared = getSharedPreferences("information", MODE_PRIVATE);
         imageShared = getSharedPreferences("image", MODE_PRIVATE);
+        tongueShared = getSharedPreferences("tongue", MODE_PRIVATE);
 
         warningDialog = new MaterialDialog.Builder(this)
                 .title("错误")
@@ -469,10 +470,15 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
         try{
             JSONObject obj = new JSONObject(respond);
             String health_index = obj.getString("health_index");
+            String constitution = obj.getString("constitution");
+            SharedPreferences.Editor editor = tongueShared.edit();
+            editor.putString("health_index", health_index);
+            editor.putString("constitution", constitution);
+            editor.apply();
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("phone",mShared.getString("phone",""));
-            jsonObject.put("record",health_index+",舌象分析");
+            jsonObject.put("record",health_index+"+"+constitution+"+舌象分析");
 
             result = jsonObject.toString();
         } catch (JSONException e) {
@@ -481,104 +487,5 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
 
         Log.d("face record",result);
         return result;
-    }
-
-        private void showInputURLDialog(Boolean isURLExited) {
-//            editDialog.setTitle("请输入舌像分析设备的网络地址");
-//            editDialog.setYesOnclickListener("确定", new URLEditDialog.onYesOnclickListener() {
-//                @Override
-//                public void onYesClick(String url) {
-//                    if (TextUtils.isEmpty(url)) {
-//                        XToastUtils.error("请输入url地址");
-//                    } else {
-//                        if (isURLExited){
-//                            URLInfo urlInfo = mHelper.queryByUsage("2");
-//                            urlInfo.User_URL = url;
-//                            mHelper.update(urlInfo);
-//                        }
-//                        else {
-//                            URLInfo urlInfo = new URLInfo();
-//
-//                            urlInfo.User_URL = url;
-//                            urlInfo.usage = "2";
-//                            mHelper.insert(urlInfo);
-//                        }
-//                        XToastUtils.info(""+url);
-//
-//                        editDialog.dismiss();
-//                        //让软键盘隐藏
-////                        InputMethodManager imm = null;
-////                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-////                            imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-////                        }
-////                        imm.hideSoftInputFromWindow(getView().getApplicationWindowToken(), 0);
-//                    }
-//                }
-//            });
-//            editDialog.setNoOnclickListener("取消", new URLEditDialog.onNoOnclickListener() {
-//                @Override
-//                public void onNoClick() {
-//                    editDialog.dismiss();
-//                }
-//            });
-//            editDialog.show();
-        }
-
-    private void showConfirmDialog(URLInfo urlInfo) {
-//        confirmDialog.setTitle("将向以下分析设备地址发送请求");
-//        confirmDialog.setConfirmURL(urlInfo.User_URL);
-//        confirmDialog.setYesOnclickListener("确定", new URLConfirmDialog.onYesOnclickListener() {
-//            @Override
-//            public void onYesClick() {
-//                // 获取美图视图处理后的位图
-//                mBitmap = mv_content.getCropBitmap();
-//                String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
-//                String image_name = "result_tongue.png";
-//                String full_path = String.format("%s/%s", image_path, image_name);
-//                BitmapUtil.saveBitmap(full_path, mBitmap, "jpg", 80);
-//
-////                    String cut_face = bitmaptoString(mBitmap,100);
-//
-//                //将位图转为字节数组后再转为base64
-//                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);   //切割图
-////                bitmap_content.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);     //原图
-//
-//                waitingDialog.showListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialogInterface) {
-//                        final MaterialDialog dialog = (MaterialDialog)dialogInterface;
-//                        new Thread(){
-//                            @Override
-//                            public void run() {
-//                                super.run();
-//                                Message message = Message.obtain();
-//                                message.what = RESPONSE;
-//                                Bundle bundle = new Bundle();
-//
-//                                String data = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-//
-//                                //发起网络请求，传入base64数据
-//                                String res = HttpRequestUtil.postImage(urlInfo.User_URL,data);
-//
-//                                bundle.putString("content",res);
-//
-//                                message.setData(bundle);
-//                                mhandler.sendMessage(message);
-//
-//                                dialog.dismiss();
-//                            }
-//                        }.start();
-//                    }
-//                }).show() ;
-//            }
-//        });
-//        confirmDialog.setNoOnclickListener("取消", new URLConfirmDialog.onNoOnclickListener() {
-//            @Override
-//            public void onNoClick() {
-//                confirmDialog.dismiss();
-//            }
-//        });
-//        confirmDialog.show();
     }
 }

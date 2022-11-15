@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MyApp"
@@ -33,6 +34,12 @@
         android:windowSoftInputMode="adjustPan|stateHidden"
         tools:ignore="ExtraText,LockedOrientationActivity"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".activity.DiagnosisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RecordDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.DetailDiseaseActivity"
             android:exported="false" />

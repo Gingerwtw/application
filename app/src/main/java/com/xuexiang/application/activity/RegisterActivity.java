@@ -76,10 +76,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //            }
 //            else
             if (phone.length() == 0){
-                XToastUtils.error("手机号不能为空");
-            }
-            else if (phone.length() != 11){
-                XToastUtils.error("请输入正确的11位手机号");
+                XToastUtils.error("用户名不能为空");
             }
             else if (password.length() == 0){
                 XToastUtils.error("请输入密码");

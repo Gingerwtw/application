@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activity.RecordDetailActivity"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/record_detail_tongue_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="舌象分析"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/record_detail_tongue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/record_detail_tongue_head">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/record_detail_tongue_constitution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="体质"/>
+
+                    <TextView
+                        android:id="@+id/record_detail_tongue_constitution_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="78dp"
+                        android:layout_toEndOf="@+id/record_detail_tongue_constitution"
+                        android:text="0.56" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/record_detail_tongue_health_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="健康指数"/>
+
+                    <TextView
+                        android:id="@+id/record_detail_tongue_health_index_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_toEndOf="@+id/record_detail_tongue_health_index"
+                        android:text="0.56" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/record_detail_tongue_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无舌象分析"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="20dp"
+                android:layout_below="@+id/record_detail_tongue_head"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/record_detail_face_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="面象分析"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <RelativeLayout
+                android:id="@+id/record_detail_face"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/record_detail_face_head">
+
+                <TextView
+                    android:id="@+id/record_detail_face_health_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="健康指数"/>
+
+                <TextView
+                    android:id="@+id/record_detail_face_health_index_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_toEndOf="@+id/record_detail_face_health_index"
+                    android:text="0.56" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/record_detail_face_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无面象分析"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="20dp"
+                android:layout_below="@+id/record_detail_face_head"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="肺音分析"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <RelativeLayout
+                android:id="@+id/record_detail_lung_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/record_detail_lung_volume_health_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="健康指数"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.56"
+                    android:layout_toEndOf="@+id/record_detail_lung_volume_health_index"
+                    android:layout_marginStart="50dp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/record_detail_lung_volume_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无肺音分析"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="20dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+

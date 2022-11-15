@@ -125,7 +125,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 req.params = new StringBuffer(requestData);
 
                 HttpRespData resp_data = HttpRequestUtil.postData(req);
-                Log.d("login result", String.valueOf(resp_data));
                 String content = resp_data.content;
                 Log.d("login result", content);
 

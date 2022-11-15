@@ -31,14 +31,12 @@ import com.xuexiang.xutil.display.Colors;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Objects;
-
 /**
  * 登录页面
  */
 public class LoginActivity extends BaseActivity implements OnClickListener, ClickUtils.OnClick2ExitListener {
 
-    private EditText editText_phone; // 声明一个编辑框对象
+    private EditText editText_username; // 声明一个编辑框对象
     private EditText editText_password; // 声明一个编辑框对象
     private Button btn_forget; // 声明一个按钮控件对象
     private Button btn_login;
@@ -67,7 +65,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
         setContentView(R.layout.activity_login);
         mShared = getSharedPreferences("information", MODE_PRIVATE);
 
-            editText_phone = findViewById(R.id.et_phone_number);
+            editText_username = findViewById(R.id.et_username);
             editText_password = findViewById(R.id.et_password);
             btn_forget = (Button) findViewById(R.id.tv_forget_password);
             btn_register = (Button)findViewById(R.id.tv_register);
@@ -75,7 +73,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
             Button btn_change_url = findViewById(R.id.btn_change_url);
             btn_change_url.setOnClickListener(this);
 
-            editText_phone.setText(getIntent().getStringExtra("phone"));
+            editText_username.setText(getIntent().getStringExtra("phone"));
 
 //        editText_phone.addTextChangedListener(new HideTextWatcher(editText_phone));
 //        editText_password.addTextChangedListener(new HideTextWatcher(editText_password));
@@ -107,7 +105,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
             }
             else if (message.what == SUBMIT_LOGIN_FAIL){
 //                warningDialog.content("登录失败").show();
-                XToastUtils.error("手机号不存在或密码错误");
+                XToastUtils.error("用户名不存在或密码错误");
             }
             else if (message.what == SUBMIT_LOGIN_WRONG_SERVER){
 //                warningDialog.content("登录失败").show();
@@ -119,7 +117,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
     @Override
     public void onClick(View view){
         if (view.getId() == R.id.tv_forget_password){
-            phone = editText_phone.getText().toString();
+            phone = editText_username.getText().toString();
             Intent intent = new Intent(LoginActivity.this, LoginForgetActivity.class);
             intent.putExtra("phone", phone);
             startActivityForResult(intent, 1);
@@ -129,7 +127,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
             startActivity(intent);
         }
         if (view.getId() == R.id.btn_login){
-            phone = editText_phone.getText().toString();
+            phone = editText_username.getText().toString();
             if (urlUtils.getLogin() != null){
                 login();
             }

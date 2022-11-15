@@ -1,14 +1,19 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -66,12 +71,12 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
     private DialogLoader mDialogLoader;
     private UrlUtils urlUtils = new UrlUtils();
-    private SharedPreferences mShared, imageShared;
+    private SharedPreferences mShared, imageShared, faceShared;
 
     private JSONObject middle_top, middle_middle, middle_bottom, left, right;
     private String health_index, correct_face_img;
 
-
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,8 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
         mDialogLoader = DialogLoader.getInstance().setIDialogStrategy(new MaterialDialogStrategy());
         mShared = getSharedPreferences("information", MODE_PRIVATE);
         imageShared = getSharedPreferences("image", MODE_PRIVATE);
+        faceShared = getSharedPreferences("face", MODE_PRIVATE);
+        vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
         warningDialog = new MaterialDialog.Builder(FaceActivity.this)
                 .title("错误")
@@ -307,6 +314,7 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
                         mhandler.sendMessage(message);
                         dialog.dismiss();
+
                     }
                 }.start();
             }
@@ -314,6 +322,10 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void getFace(){
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(this, notification);
+        r.play();
+
         waitingDialog.content("面象采集中，请稍候")
                 .showListener(new DialogInterface.OnShowListener() {
             @Override
@@ -346,6 +358,8 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                         }
                         mhandler.sendMessage(message);
                         dialog.dismiss();
+                        long[] pattern = { 10L, 60L }; // An array of longs of times for which to turn the vibrator on or off.
+                        vibrator.vibrate(pattern, -1); // The index into pattern at which to repeat, or -1 if you don't want to repeat.
                     }
                 }.start();
             }
@@ -357,10 +371,13 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
         try{
             JSONObject obj = new JSONObject(respond);
             String health_index = obj.getString("health_index");
+            SharedPreferences.Editor editor = faceShared.edit();
+            editor.putString("health_index", health_index);
+            editor.apply();
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("phone",mShared.getString("phone",""));
-            jsonObject.put("record",health_index+",面象分析");
+            jsonObject.put("record",health_index+"+面象分析");
 
             result = jsonObject.toString();
         } catch (JSONException e) {

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 
 import com.xuexiang.application.R;
+import com.xuexiang.application.activity.DiagnosisActivity;
 import com.xuexiang.application.activity.FaceActivity;
 import com.xuexiang.application.activity.LoginActivity;
 import com.xuexiang.application.activity.MainActivity;
@@ -33,7 +34,7 @@ import com.xuexiang.xpage.enums.CoreAnim;
 //public class ChangeURLFragment extends Fragment<FragmentChangeUrlBinding> implements View.OnClickListener {
     public class DiagnosisFragment extends Fragment implements View.OnClickListener {
 
-    Button face,tongue,lung_volume,all;
+    Button face,tongue,lung_volume,all, pulse;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_diagnosis, container, false);
@@ -47,11 +48,13 @@ import com.xuexiang.xpage.enums.CoreAnim;
         tongue = getActivity().findViewById(R.id.diagnosis_btn_tongue);
         lung_volume = getActivity().findViewById(R.id.diagnosis_btn_lung_volume);
         all = getActivity().findViewById(R.id.diagnosis_btn_all);
+        pulse = getActivity().findViewById(R.id.diagnosis_btn_pulse);
 
         face.setOnClickListener(this);
         tongue.setOnClickListener(this);
         lung_volume.setOnClickListener(this);
         all.setOnClickListener(this);
+        pulse.setOnClickListener(this);
     }
 
     @Override
@@ -90,9 +93,13 @@ import com.xuexiang.xpage.enums.CoreAnim;
                 intent = new Intent(getActivity(), LungVolumeActivity.class);
                 startActivityForResult(intent,3);
                 break;
-            case R.id.diagnosis_btn_all:
+            case R.id.diagnosis_btn_pulse:
                 intent = new Intent(getActivity(), PulseActivity.class);
                 startActivityForResult(intent,4);
+                break;
+            case R.id.diagnosis_btn_all:
+                intent = new Intent(getActivity(), DiagnosisActivity.class);
+                startActivityForResult(intent,5);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + view.getId());
