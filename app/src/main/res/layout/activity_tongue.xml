@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/xui_config_color_white">
+    android:background="@drawable/lung_background">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
                 android:id="@+id/toolbar"
                 android:gravity="center_vertical">
 
@@ -17,8 +16,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tongue_toolbar_back"
-                    android:src="@drawable/ic_web_back"
-                    android:layout_marginStart="10dp"/>
+                    android:src="@drawable/toolbar_back"
+                    android:layout_marginStart="20dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -27,51 +26,93 @@
                     android:text="舌象分析"
                     android:layout_marginStart="30dp"
                     android:textSize="23sp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/brown"/>
             </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:id="@+id/tongue_image" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/frame"
+        android:padding="11dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tongue_image" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:id="@+id/btn_tongue_get"
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="采集"
-            android:textSize="16sp" />
+            android:src="@drawable/collect"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-            android:id="@+id/btn_tongue_reget"
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_tongue_ana"
+            android:src="@drawable/analyse"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="重新采集"
-            android:textSize="16sp" />
+            android:visibility="invisible"/>
+
+        <!--        <com.xuexiang.xui.widget.textview.supertextview.SuperButton-->
+        <!--            android:id="@+id/btn_face_album"-->
+        <!--            style="@style/SuperButton.Primary.Login"-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginStart="10dp"-->
+        <!--            android:layout_marginEnd="10dp"-->
+        <!--            android:text="从相册选取"-->
+        <!--            android:textSize="16sp" />-->
+
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_tongue_album"
+            android:src="@drawable/album"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_tongue_get"/>
+
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_tongue_reget"
+            android:src="@drawable/recollect"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_tongue_album"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="请将脸部最准摄像头，并伸出舌头，点击采集按钮"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="50dp"
+            android:textColor="@color/brown"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_tongue_reget"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

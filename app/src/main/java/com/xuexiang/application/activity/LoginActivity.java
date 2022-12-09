@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.xuexiang.application.R;
@@ -38,7 +39,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 
     private EditText editText_username; // 声明一个编辑框对象
     private EditText editText_password; // 声明一个编辑框对象
-    private Button btn_forget; // 声明一个按钮控件对象
     private Button btn_login;
     private Button btn_register;
     private LinearLayout linearLayout_login, linearLayout_change;
@@ -67,10 +67,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 
             editText_username = findViewById(R.id.et_username);
             editText_password = findViewById(R.id.et_password);
-            btn_forget = (Button) findViewById(R.id.tv_forget_password);
             btn_register = (Button)findViewById(R.id.tv_register);
             btn_login = findViewById(R.id.btn_login);
-            Button btn_change_url = findViewById(R.id.btn_change_url);
+            ImageButton btn_change_url = findViewById(R.id.btn_change_url);
             btn_change_url.setOnClickListener(this);
 
             editText_username.setText(getIntent().getStringExtra("phone"));
@@ -78,11 +77,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 //        editText_phone.addTextChangedListener(new HideTextWatcher(editText_phone));
 //        editText_password.addTextChangedListener(new HideTextWatcher(editText_password));
 
-            btn_forget.setOnClickListener(this);
             btn_login.setOnClickListener(this);
             btn_register.setOnClickListener(this);
 
-            btn_forget.setVisibility(View.INVISIBLE);
 //        btn_skip.setVisibility(View.INVISIBLE);
 
             warningDialog = new MaterialDialog.Builder(LoginActivity.this)
@@ -143,7 +140,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
 
     private void login(){
         password = editText_password.getText().toString();
-
         String result = ToJSON();
 
         new Thread() {
@@ -159,7 +155,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Clic
                 Log.d("login result", String.valueOf(resp_data));
                 String content = resp_data.content;
                 Log.d("login result", content);
-
 
                 Message message = Message.obtain();
                 if (content.equals("")){

@@ -41,6 +41,7 @@ import com.xuexiang.application.utils.XToastUtils;
 import com.xuexiang.application.utils.http.HttpReqData;
 import com.xuexiang.application.utils.http.HttpRespData;
 import com.xuexiang.xui.widget.dialog.DialogLoader;
+import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xui.widget.dialog.strategy.impl.MaterialDialogStrategy;
 import com.xuexiang.xui.widget.picker.widget.TimePickerView;
 import com.xuexiang.xui.widget.picker.widget.builder.TimePickerBuilder;
@@ -70,6 +71,7 @@ public class InformationActivity extends AppCompatActivity {
     private int SUBMIT_INFORMATION_FAIL = 0;
 
     private SharedPreferences mShared; // 声明一个共享参数对象
+    private MaterialDialog.Builder warningDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,9 @@ public class InformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_information);
 
         mShared = getSharedPreferences("information", MODE_PRIVATE);
+        warningDialog = new MaterialDialog.Builder(InformationActivity.this)
+                .title("错误")
+                .positiveText("确认");
 
         editText_name = findViewById(R.id.et_name);
         editText_sex = findViewById(R.id.et_sex);
@@ -116,39 +121,45 @@ public class InformationActivity extends AppCompatActivity {
                 }
                 else {
                     Log.d("information submit", name+gender+birthday+profession+medical_history);
+                    String url = UrlInfo.getRegister();
+                    if(url == null){
+                        warningDialog.content("请先设置服务器地址").show();
+                    }
+                    else{
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                super.run();
+                                String result = ToJSON();
 
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            super.run();
-                            String result = ToJSON();
+                                HttpReqData req = new HttpReqData();
+                                req.url = url;
+                                req.params = new StringBuffer(result);
 
-                            HttpReqData req = new HttpReqData();
-                            req.url = UrlInfo.getRegister();
-                            req.params = new StringBuffer(result);
+                                HttpRespData resp_data = HttpRequestUtil.postData(req);
+                                Log.d("information result", String.valueOf(resp_data));
+                                String content = resp_data.content;
+                                Log.d("information result", content);
 
-                            HttpRespData resp_data = HttpRequestUtil.postData(req);
-                            Log.d("information result", String.valueOf(resp_data));
-                            String content = resp_data.content;
-                            Log.d("information result", content);
+                                Message message = Message.obtain();
+                                try {
+                                    JSONObject obj = new JSONObject(content);
+                                    String status = obj.getString("message");
 
-                            Message message = Message.obtain();
-                            try {
-                                JSONObject obj = new JSONObject(content);
-                                String status = obj.getString("message");
-
-                                if (status.equals("注册成功！")){
-                                    message.what = SUBMIT_INFORMATION;
-                                }else{
+                                    if (status.equals("注册成功！")){
+                                        message.what = SUBMIT_INFORMATION;
+                                    }else{
+                                        message.what = SUBMIT_INFORMATION_FAIL;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                     message.what = SUBMIT_INFORMATION_FAIL;
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                message.what = SUBMIT_INFORMATION_FAIL;
+                                mhandler.sendMessage(message);
                             }
-                            mhandler.sendMessage(message);
-                        }
-                    }.start();
+                        }.start();
+                    }
+
                 }
             }
         });
@@ -169,7 +180,7 @@ public class InformationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else if (message.what == SUBMIT_INFORMATION_FAIL){
-                XToastUtils.error("该手机号已注册");
+                warningDialog.content("注册失败，请检查网络连接或服务器地址是否正确").show();
             }
         }
     };

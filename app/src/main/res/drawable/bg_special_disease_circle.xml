@@ -14,7 +14,7 @@
             <item android:state_pressed="true">
                 <shape android:shape="oval" >
                     <!--            <corners android:radius="@dimen/size90"/>-->
-                    <solid android:color="@color/toast_info_color" />
+                    <solid android:color="@color/brown" />
                     <size android:width="162dp" android:height="162dp"/>
                 </shape>
             </item>
@@ -22,7 +22,7 @@
             <item>
                 <shape android:shape="oval" >
                     <!--            <corners android:radius="@dimen/size90"/>-->
-                    <solid android:color="@color/toast_info_color" />
+                    <solid android:color="@color/brown" />
                     <size android:width="162dp" android:height="162dp"/>
                 </shape>
             </item>

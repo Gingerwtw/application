@@ -3,21 +3,41 @@
 package com.xuexiang.application.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.xuexiang.application.MyApp;
 import com.xuexiang.application.R;
 import com.xuexiang.application.core.BaseActivity;
+import com.xuexiang.application.utils.ImageSaveUtil;
+import com.xuexiang.application.utils.XToastUtils;
+import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class FaceResultActivity extends BaseActivity implements View.OnClickListener {
 //    private JSONObject middle_top;
@@ -27,8 +47,11 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
 //    private JSONObject right;
     private String health_index;
     private String correct_face_img;
+    private LinearLayout report;
 
     private String middle_top,middle_middle, middle_bottom, left, right;
+
+    private MaterialDialog.Builder warningDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +73,15 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
         face_result_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         ImageButton btn_back = findViewById(R.id.face_result_toolbar_back);
+        report = findViewById(R.id.face_result_report);
+        Button btn_save = findViewById(R.id.btn_face_result_save);
+        btn_save.setOnClickListener(this);
         btn_back.setOnClickListener(this);
 
         TextView tv_face_result_health_index = findViewById(R.id.face_result_health_index);
         tv_face_result_health_index.setText(health_index);
+
+        warningDialog = new MaterialDialog.Builder(FaceResultActivity.this).positiveText("确认");
     }
 
     private void initResult(){
@@ -214,5 +242,27 @@ public class FaceResultActivity extends BaseActivity implements View.OnClickList
 //            startActivityForResult(intent,200);
             finish();
         }
+        else if (view.getId() == R.id.btn_face_result_save){
+            Boolean save_result = screenshotView();
+            if (save_result){
+                warningDialog.title("成功").content("分析报告保存成功，可在相册中查看").show();
+            }else{
+                warningDialog.title("错误").content("分析报告保存失败").show();
+            }
+        }
+    }
+
+    private Boolean screenshotView() {
+//        View view = getWindow().getDecorView(); //截取当前屏幕
+        View view = report;
+        view.setBackgroundResource(R.drawable.lung_background);
+//        view.setDrawingCacheEnabled(true); // 设置缓存，可用于实时截图
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        view.setBackgroundResource(0);
+//        view.setDrawingCacheEnabled(false); // 清空缓存，可用于实时截图
+
+        return ImageSaveUtil.saveAlbum(this, bitmap, Bitmap.CompressFormat.JPEG, 80, true);
     }
 }

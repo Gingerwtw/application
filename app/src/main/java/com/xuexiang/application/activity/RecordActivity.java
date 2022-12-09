@@ -43,7 +43,6 @@ public class RecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_record);
         mShared = getSharedPreferences("information", MODE_PRIVATE);
 
-
         boolean haveRecord = initResult();
         if (!haveRecord){
             TextView record_hint = findViewById(R.id.record_hint);

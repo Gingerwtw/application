@@ -5,6 +5,7 @@ package com.xuexiang.application.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,8 +20,8 @@ import java.util.Objects;
 
 public class DiagnosisActivity extends AppCompatActivity {
 
-    TextView health_index, constitution, hint;
-    LinearLayout face_tongue;
+    TextView health_index, constitution,advice, hint;
+    LinearLayout face_tongue, lung;
     ImageButton btn_back;
 
     @SuppressLint("SetTextI18n")
@@ -33,9 +34,13 @@ public class DiagnosisActivity extends AppCompatActivity {
 
         health_index = findViewById(R.id.diagnosis_health_index_data);
         constitution = findViewById(R.id.diagnosis_constitution_data);
+        advice = findViewById(R.id.diagnosis_advice);
         hint = findViewById(R.id.diagnosis_face_tongue_hint);
         face_tongue = findViewById(R.id.diagnosis_face_tongue);
+        lung = findViewById(R.id.diagnosis_lung);
         btn_back = findViewById(R.id.diagnosis_toolbar_back);
+
+        lung.setVisibility(View.INVISIBLE);
 
         String tongue_health_index = tongueShared.getString("health_index","");
         String face_health_index = faceShared.getString("health_index","");
@@ -46,6 +51,7 @@ public class DiagnosisActivity extends AppCompatActivity {
 
             health_index.setText(Float.toString(health_index_data));
             constitution.setText(tongueShared.getString("constitution",""));
+            advice.setText(tongueShared.getString("advice",""));
             hint.setVisibility(View.INVISIBLE);
         }else{
             face_tongue.setVisibility(View.INVISIBLE);
@@ -55,6 +61,17 @@ public class DiagnosisActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        constitution.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DiagnosisActivity.this,DetailDiseaseActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("tongue_result_constitution",constitution.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

@@ -25,11 +25,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.xuexiang.application.R;
-import com.xuexiang.application.activity.MeituActivity;
-import com.xuexiang.application.core.BaseFragment;
+import com.xuexiang.application.activity.TongueSeparationActivity;
 import com.xuexiang.application.database.URLInfo;
 import com.xuexiang.application.database.URLDBHelper;
-import com.xuexiang.application.databinding.FragmentTongueBinding;
 import com.xuexiang.application.utils.BitmapUtil;
 import com.xuexiang.application.utils.HttpRequestUtil;
 import com.xuexiang.application.utils.XToastUtils;
@@ -39,7 +37,6 @@ import com.xuexiang.xaop.annotation.SingleClick;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xrouter.utils.TextUtils;
-import com.xuexiang.xui.widget.actionbar.TitleBar;
 import com.xuexiang.application.dialog.URLEditDialog;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
@@ -261,7 +258,7 @@ public class TongueFragment extends Fragment implements OnClickListener {
                 String full_path = String.format("%s/%s", image_path, image_name);
                 BitmapUtil.saveBitmap(full_path, bitmap, "jpg", 80);
 
-                Intent intent = new Intent(getActivity(), MeituActivity.class);
+                Intent intent = new Intent(getActivity(), TongueSeparationActivity.class);
                 intent.putExtra("path",full_path);
 
 //                ByteArrayOutputStream baos=new ByteArrayOutputStream();

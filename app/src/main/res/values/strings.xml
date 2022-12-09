@@ -115,11 +115,11 @@
     <string name="face_color_deep_red">暗红色：</string>
     <string name="face_color_red">红色：</string>
     <string name="face_color_percent">100%</string>
-    <string name="face_color_middle_top">中间上：</string>
-    <string name="face_color_middle_middle">中间中：</string>
-    <string name="face_color_middle_bottom">中间下：</string>
-    <string name="face_color_left">左边：</string>
-    <string name="face_color_right">右边：</string>
+    <string name="face_color_middle_top">中间上</string>
+    <string name="face_color_middle_middle">中间中</string>
+    <string name="face_color_middle_bottom">中间下</string>
+    <string name="face_color_left">左边</string>
+    <string name="face_color_right">右边</string>
 
     <!--face result-->
     <string name="face_result_title">健康指数报告</string>

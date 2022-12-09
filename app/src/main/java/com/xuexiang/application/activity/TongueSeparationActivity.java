@@ -28,7 +28,6 @@ import com.xuexiang.application.R;
 import com.xuexiang.application.UrlUtils;
 import com.xuexiang.application.core.BaseActivity;
 import com.xuexiang.application.database.URLDBHelper;
-import com.xuexiang.application.database.URLInfo;
 import com.xuexiang.application.utils.BitmapUtil;
 import com.xuexiang.application.utils.HttpRequestUtil;
 import com.xuexiang.application.utils.XToastUtils;
@@ -50,7 +49,7 @@ import java.util.Objects;
 
 //public class MeituActivity extends BaseActivity implements
 //        FileSelectCallbacks, FileSaveCallbacks, ImageChangetListener {
-public class MeituActivity extends BaseActivity implements ImageChangetListener {
+public class TongueSeparationActivity extends BaseActivity implements ImageChangetListener {
     private final static String TAG = "MeituActivity";
     private MeituView mv_content; // 声明一个美图视图对象
     private TextView tv_intro;
@@ -109,7 +108,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
                 .input("", "", false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        XToast.normal(MeituActivity.this,input).show();
+                        XToast.normal(TongueSeparationActivity.this,input).show();
                     }
                 })
                 .positiveText("确认")
@@ -270,7 +269,7 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
                 XToastUtils.error("上传诊疗记录失败");
             }
             initResult(message.getData().getString("content"));
-            Intent intent = new Intent(MeituActivity.this, TongueResultActivity.class);
+            Intent intent = new Intent(TongueSeparationActivity.this, TongueResultActivity.class);
             Bundle bundle = new Bundle();
 //            bundle.putString("tongue_result",message.getData().getString("content"));
             bundle.putString("substance", String.valueOf(substance));
@@ -471,9 +470,11 @@ public class MeituActivity extends BaseActivity implements ImageChangetListener 
             JSONObject obj = new JSONObject(respond);
             String health_index = obj.getString("health_index");
             String constitution = obj.getString("constitution");
+            String advice = obj.getString("advice");
             SharedPreferences.Editor editor = tongueShared.edit();
             editor.putString("health_index", health_index);
             editor.putString("constitution", constitution);
+            editor.putString("advice", advice);
             editor.apply();
 
             JSONObject jsonObject = new JSONObject();

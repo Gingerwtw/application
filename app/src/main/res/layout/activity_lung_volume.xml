@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/lung_background">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <!--    <android.support.v7.widget.Toolbar-->
         <!--        android:id="@+id/toolbar"-->
@@ -24,7 +22,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             android:id="@+id/toolbar"
             android:gravity="center_vertical">
 
@@ -32,8 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lung_volume_toolbar_back"
-                android:src="@drawable/ic_web_back"
-                android:layout_marginStart="10dp"/>
+                android:src="@drawable/toolbar_back"
+                android:layout_marginStart="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,7 +39,7 @@
                 android:text="肺音分析"
                 android:layout_marginStart="30dp"
                 android:textSize="23sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/brown"/>
 
         </LinearLayout>
 
@@ -61,8 +58,9 @@
                 android:background="@drawable/bg_special_disease_circle"
                 android:text="连接蓝牙"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_centerInParent="true"/>
+                android:textSize="22sp"
+                android:layout_centerInParent="true"
+                />
 
             <!--        <ImageView-->
             <!--            android:id="@+id/img_loading"-->
@@ -81,7 +79,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:text="打开听诊器后，点击按钮连接蓝牙"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/brown"/>
 
         </RelativeLayout>
 

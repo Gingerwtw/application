@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 
@@ -34,7 +35,7 @@ import com.xuexiang.xpage.enums.CoreAnim;
 //public class ChangeURLFragment extends Fragment<FragmentChangeUrlBinding> implements View.OnClickListener {
     public class DiagnosisFragment extends Fragment implements View.OnClickListener {
 
-    Button face,tongue,lung_volume,all, pulse;
+    ImageButton face,tongue,lung_volume,all, pulse;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_diagnosis, container, false);

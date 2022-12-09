@@ -1,135 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.InformationActivity"
-    android:orientation="vertical">
-
-    <TextView
-        style="@style/TextStyle.Title"
-        android:layout_width="match_parent"
-        android:layout_marginTop="80dp"
-        android:text="@string/title_register"
-        android:textSize="30sp" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/lung_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="40dp"
+        tools:context=".activity.InformationActivity"
         android:orientation="vertical">
 
-        <FrameLayout
+<!--        <TextView-->
+<!--            style="@style/TextStyle.Title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="80dp"-->
+<!--            android:text="@string/title_register"-->
+<!--            android:textSize="30sp" />-->
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_height="380dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="30dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingTop="30dp"
+            android:orientation="vertical"
+            android:background="@drawable/login_frame">
 
-
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/et_name"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
-                android:hint="请输入姓名"
-                android:inputType="text"
-                app:met_clearButton="true"
-                app:met_floatingLabel="normal"
-                app:met_floatingLabelText="姓名"
-                app:met_allowEmpty="false"
-                app:met_errorEmpty="no empty"/>
+                <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入姓名"
+                    android:inputType="text"
+                    app:met_clearButton="true"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="姓名"
+                    app:met_allowEmpty="false"
+                    app:met_errorEmpty="no empty"/>
 
-        </FrameLayout>
+            </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/et_sex"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入性别"
-                android:inputType="text"
-                app:met_clearButton="true"
-                app:met_floatingLabelText="性别"/>
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_birth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+                android:layout_marginBottom="10dp">
 
 
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/et_birth"
+                <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                    android:id="@+id/et_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入性别"
+                    android:inputType="text"
+                    app:met_clearButton="true"
+                    app:met_floatingLabelText="性别"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入出生日期"
-                android:inputType="text"
-                app:met_clearButton="false"
-                app:met_errorMessage="请输入出生日期"
-                app:met_floatingLabel="normal"
-                app:met_floatingLabelText="出生日期" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_occupation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp">
 
 
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/et_occupation"
+                <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                    android:id="@+id/et_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入出生日期"
+                    android:inputType="text"
+                    app:met_clearButton="false"
+                    app:met_errorMessage="请输入出生日期"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="出生日期" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_occupation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入职业"
-                android:inputType="text"
-                app:met_clearButton="false"
-                app:met_errorMessage="请输入职业"
-                app:met_floatingLabel="normal"
-                app:met_floatingLabelText="职业"/>
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_disease_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+                android:layout_marginBottom="20dp">
 
 
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/et_disease_history"
+                <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                    android:id="@+id/et_occupation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入职业"
+                    android:inputType="text"
+                    app:met_clearButton="false"
+                    app:met_errorMessage="请输入职业"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="职业"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_disease_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入过往病史"
-                android:inputType="text"
-                app:met_clearButton="false"
-                app:met_errorMessage="请输入过往病史"
-                app:met_floatingLabel="normal"
-                app:met_floatingLabelText="过往病史"/>
+                android:layout_marginBottom="10dp">
 
-        </FrameLayout>
+
+                <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                    android:id="@+id/et_disease_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入过往病史"
+                    android:inputType="text"
+                    app:met_clearButton="false"
+                    app:met_errorMessage="请输入过往病史"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="过往病史"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+            android:id="@+id/btn_submit"
+            style="@style/SuperButton.Primary.Login"
+            android:layout_marginTop="16dp"
+            android:text="完成"
+            app:sSelectorNormalColor="@color/brown"
+            app:sSelectorPressedColor="@color/brown"/>
+
+
 
     </LinearLayout>
 
-    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-        android:id="@+id/btn_submit"
-        style="@style/SuperButton.Primary.Login"
-        android:layout_marginTop="16dp"
-        android:text="完成" />
-
-
-
-</LinearLayout>
+</ScrollView>

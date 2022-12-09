@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -44,16 +45,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
-    private Button btn_get;
-    private Button btn_reget;
+    private ImageButton btn_get, btn_reget, btn_album, btn_ana;
     private ImageButton btn_back;
     private Button btn_change_url;
     private ImageView image;
-    Bitmap bitmap = null;
+    private Bitmap bitmap = null;
 
     private URLDBHelper mHelper; // 声明一个用户数据库的帮助器对象
     private final int GET_FACE_IMAGE = 0;
@@ -62,6 +63,8 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
     private final int ANA_FACE_IMAGE_FAILED = 3;
     private final int ANA_FACE_IMAGE_ADD_SUCCESS = 4;
     private final int ANA_FACE_IMAGE_ADD_FAILED = 5;
+    private final int ANA_FACE_IMAGE_SERVER_ERROR = 6;
+    private final int OPEN_ALBUM = 101;
 
     private int init = 0;
 
@@ -115,13 +118,17 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
 
 
         btn_get = findViewById(R.id.btn_face_get);
+        btn_ana = findViewById(R.id.btn_face_ana);
         btn_back = findViewById(R.id.face_toolbar_back);
         btn_reget = findViewById(R.id.btn_face_reget);
+        btn_album = findViewById(R.id.btn_face_album);
         image = findViewById(R.id.face_image);
 
         btn_get.setOnClickListener(this);
+        btn_ana.setOnClickListener(this);
         btn_back.setOnClickListener(this);
         btn_reget.setOnClickListener(this);
+        btn_album.setOnClickListener(this);
         btn_reget.setVisibility(View.INVISIBLE);
     }
 
@@ -139,6 +146,29 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                 image.setImageBitmap(bitmap);
             }
         }
+        else if (requestCode == OPEN_ALBUM && resultCode == RESULT_OK && data != null){
+            Uri uris;
+            uris = data.getData();
+//            Bitmap bitmap = null;
+            //Uri转化为Bitmap
+            try {
+                bitmap = getBitmapFromUri(uris);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Message message = Message.obtain();
+            Bundle bundle = new Bundle();
+            message.what = GET_FACE_IMAGE;
+
+            String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
+            String image_name = "get_face.png";
+            String full_path = String.format("%s/%s", image_path, image_name);
+
+            BitmapUtil.saveBitmap(full_path, bitmap, "jpg", 80);
+            bundle.putString("path",full_path);
+            message.setData(bundle);
+            mhandler.sendMessage(message);
+        }
     }
 
 
@@ -150,7 +180,8 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                 bitmap = BitmapUtil.openBitmap(path);
                 image.setImageBitmap(bitmap);
                 image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                btn_get.setText("分析");
+                btn_get.setVisibility(View.INVISIBLE);
+                btn_ana.setVisibility(View.VISIBLE);
                 btn_reget.setVisibility(View.VISIBLE);
             }
             else if(message.what == ANA_FACE_IMAGE){
@@ -194,8 +225,11 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
             else if (message.what == GET_FACE_IMAGE_FAILED){
                 warningDialog.content("向采集设备发送网络请求失败").show();
             }
-            else if (message.what == ANA_FACE_IMAGE_FAILED){
+            else if (message.what == ANA_FACE_IMAGE_SERVER_ERROR){
                 warningDialog.content("向面象分析设备发送网络请求失败").show();
+            }
+            else if (message.what == ANA_FACE_IMAGE_FAILED){
+                warningDialog.content("上传的面象照片中面部不清晰").show();
             }
         }
     };
@@ -228,21 +262,19 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
         int id = view.getId();
         // 从采集设备获取图像
         if (id == R.id.btn_face_get) {
-            if (btn_get.getText().equals("采集")){
-                if (urlUtils.getFace_calibrate()!= null){
-                    getFace();
-                }
-                else{
-                    warningDialog.content("请先设置采集设备地址").show();
-                }
+            if (urlUtils.getFace_calibrate()!= null){
+                getFace();
             }
             else{
-                if (urlUtils.getFace_analyze() != null){
-                    analyseFace();
-                }
-                else{
-                    warningDialog.content("请先设置服务器地址").show();
-                }
+                warningDialog.content("请先设置采集设备地址").show();
+            }
+        }
+        else if (id == R.id.btn_face_ana){
+            if (urlUtils.getFace_analyze() != null){
+                analyseFace();
+            }
+            else{
+                warningDialog.content("请先设置服务器地址").show();
             }
         }
         else if (id == R.id.face_toolbar_back){
@@ -255,6 +287,12 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
             else{
                 warningDialog.content("请先设置采集设备地址").show();
             }
+        }
+        else if (id == R.id.btn_face_album){
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            //设置请求码，以便我们区分返回的数据
+            startActivityForResult(intent, OPEN_ALBUM);
         }
     }
 
@@ -301,20 +339,35 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
                         //发起网络请求，传入base64数据
                         String res = HttpRequestUtil.postImage(urlUtils.getFace_analyze(),data);
                         Log.d("respond",res);
+                        Log.d("respond length", String.valueOf(res.length()));
 
-                        if (res.length() < 200){
-                            message.what = ANA_FACE_IMAGE_FAILED;
-                        }
-                        else{
-                            message.what = ANA_FACE_IMAGE;
-                            Bundle bundle = new Bundle();
-                            bundle.putString("content",res);
-                            message.setData(bundle);
-                        }
+//                        if (res.length() < 200){
+//                            message.what = ANA_FACE_IMAGE_SERVER_ERROR;
+//                        }else{
+                            String status = null;
+                            try {
+                                JSONObject obj = new JSONObject(res);
+                                status = obj.getString("status");
+                            }catch (JSONException e) {
+                                message.what = ANA_FACE_IMAGE_FAILED;
+                                e.printStackTrace();
+                            }
 
+                            if (Objects.equals(status, "failed")){
+                                message.what = ANA_FACE_IMAGE_FAILED;
+                            }
+                            else if (Objects.equals(status, "success")){
+                                message.what = ANA_FACE_IMAGE;
+                                Bundle bundle = new Bundle();
+                                bundle.putString("content",res);
+                                message.setData(bundle);
+                            }
+                            else{
+                                message.what = ANA_FACE_IMAGE_SERVER_ERROR;
+                            }
+//                        }
                         mhandler.sendMessage(message);
                         dialog.dismiss();
-
                     }
                 }.start();
             }
@@ -387,4 +440,10 @@ public class FaceActivity extends BaseActivity implements View.OnClickListener {
         Log.d("face record",result);
         return result;
     }
+
+    //Uri转化为Bitmap
+    private Bitmap getBitmapFromUri(Uri uri) throws FileNotFoundException {
+        return BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+    }
+
 }

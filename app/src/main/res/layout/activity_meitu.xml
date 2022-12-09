@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@drawable/lung_background">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -18,7 +19,6 @@
             android:id="@+id/bv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:scaleType="centerCrop" />
 
         <com.xuexiang.application.widget.MeituView
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:layout_marginBottom="10dp"
             android:text="@string/tongue_cut_tips"
-            android:textColor="@color/black"
+            android:textColor="@color/brown"
             android:textSize="17sp" />
 
         <LinearLayout
@@ -62,7 +62,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/btn_back"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:sSelectorNormalColor="@color/brown"
+                app:sSelectorPressedColor="@color/brown"/>
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperButton
                 style="@style/SuperButton.Primary.Login"
@@ -73,7 +75,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/btn_confirm"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:sSelectorNormalColor="@color/brown"
+                app:sSelectorPressedColor="@color/brown"/>
         </LinearLayout>
 
 

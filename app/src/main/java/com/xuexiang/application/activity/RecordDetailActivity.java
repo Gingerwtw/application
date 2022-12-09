@@ -5,6 +5,7 @@ package com.xuexiang.application.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -45,12 +46,20 @@ public class RecordDetailActivity extends AppCompatActivity {
         tongue = bundle.getString("tongue");
         face = bundle.getString("face");
         lung = bundle.getString("lung");
+        Log.d("tongue", tongue);
+        Log.d("face", face);
+        Log.d("lung", lung);
 
         tongue = replaceIllegalCharacter(tongue);
         face = replaceIllegalCharacter(face);
         lung = replaceIllegalCharacter(lung);
 
-        if (Objects.equals(tongue, "暂无舌象分析")){
+        Log.d("tongue after replace", tongue);
+        Log.d("face after replace", face);
+        Log.d("lung after replace", lung);
+
+
+        if (Objects.equals(tongue, "暂无舌象数据")){
             detail_tongue.setVisibility(View.INVISIBLE);
         }else {
             record_detail_tongue_hint.setVisibility(View.INVISIBLE);
@@ -61,7 +70,7 @@ public class RecordDetailActivity extends AppCompatActivity {
             tx_tongue_constitution.setText(tongue_constitution);
             tx_tongue_health_index.setText(tongue_health_index);
         }
-        if (Objects.equals(face, "暂无面象分析")){
+        if (Objects.equals(face, "暂无面象数据")){
             detail_face.setVisibility(View.INVISIBLE);
         }else {
             record_detail_face_hint.setVisibility(View.INVISIBLE);
@@ -70,7 +79,7 @@ public class RecordDetailActivity extends AppCompatActivity {
 
             tx_face_health_index.setText(face_health_index);
         }
-        if (Objects.equals(lung, "暂无肺音分析")){
+        if (Objects.equals(lung, "暂无肺音数据")){
             detail_lung_volume.setVisibility(View.INVISIBLE);
         }else {
             record_detail_lung_volume_hint.setVisibility(View.INVISIBLE);

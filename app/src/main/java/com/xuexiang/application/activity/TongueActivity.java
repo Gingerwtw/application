@@ -43,6 +43,8 @@ import com.xuexiang.xui.widget.toast.XToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+
 
 /**
  * 舌象Activity
@@ -51,19 +53,19 @@ import org.json.JSONObject;
 public class TongueActivity extends BaseActivity implements OnClickListener {
 
 //    private Button btn_ana;
-    private Button btn_get;
-    private Button btn_reget;
+    private ImageButton btn_get, btn_reget, btn_album, btn_ana;
     private ImageButton btn_back;
 
     private Button btn_change_url;
     private ImageView image;
-    Bitmap bitmap = null;
+    private Bitmap bitmap = null;
 
     private URLDBHelper mHelper; // 声明一个用户数据库的帮助器对象
     private Vibrator vibrator;
 
     private final int GET_TONGUE_IMAGE = 0;
     private final int GET_TONGUE_IMAGE_FAILED = 1;
+    private final int OPEN_ALBUM = 101;
     private int init = 0;
     private UrlUtils urlUtils = new UrlUtils();
 
@@ -83,14 +85,18 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
 
 //        btn_ana = findViewById(R.id.btn_tongue_ana);
         btn_get = findViewById(R.id.btn_tongue_get);
+        btn_ana = findViewById(R.id.btn_tongue_ana);
         btn_back = findViewById(R.id.tongue_toolbar_back);
         btn_reget = findViewById(R.id.btn_tongue_reget);
+        btn_album = findViewById(R.id.btn_tongue_album);
 
         image = findViewById(R.id.tongue_image);
 //        btn_ana.setOnClickListener(this);
         btn_get.setOnClickListener(this);
+        btn_ana.setOnClickListener(this);
         btn_back.setOnClickListener(this);
         btn_reget.setOnClickListener(this);
+        btn_album.setOnClickListener(this);
         btn_reget.setVisibility(View.INVISIBLE);
 
         warningDialog = new MaterialDialog.Builder(TongueActivity.this)
@@ -181,6 +187,29 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
 //               image.setImageBitmap(bitmap);
            }
         }
+        else if (requestCode == OPEN_ALBUM && resultCode == RESULT_OK && data != null){
+            Uri uris;
+            uris = data.getData();
+//            Bitmap bitmap = null;
+            //Uri转化为Bitmap
+            try {
+                bitmap = getBitmapFromUri(uris);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Message message = Message.obtain();
+            Bundle bundle = new Bundle();
+            message.what = GET_TONGUE_IMAGE;
+
+            String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
+            String image_name = "get_face.png";
+            String full_path = String.format("%s/%s", image_path, image_name);
+
+            BitmapUtil.saveBitmap(full_path, bitmap, "jpg", 80);
+            bundle.putString("path",full_path);
+            message.setData(bundle);
+            mhandler.sendMessage(message);
+        }
     }
 
     @SuppressLint("HandlerLeak")
@@ -191,7 +220,8 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
                 bitmap = BitmapUtil.openBitmap(path);
                 image.setImageBitmap(bitmap);
                 image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                btn_get.setText("分析");
+                btn_get.setVisibility(View.INVISIBLE);
+                btn_ana.setVisibility(View.VISIBLE);
                 btn_reget.setVisibility(View.VISIBLE);
             }
             else if (message.what == GET_TONGUE_IMAGE_FAILED){
@@ -209,7 +239,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
     }
 
     public Bitmap stringToBitmap(String string) {
-// 将字符串转换成Bitmap类型
+    // 将字符串转换成Bitmap类型
         Bitmap bitmap = null;
         try {
             byte[] bitmapArray;
@@ -256,25 +286,22 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
 //        }
         // 从采集设备获取图像
         if (id == R.id.btn_tongue_get) {
-            if (btn_get.getText().equals("采集")){
-                if (urlUtils.getTongue_calibrate()!= null){
-                    getTongue();
-                }
-                else{
-                    warningDialog.content("请先设置采集设备地址").show();
-                }
+            if (urlUtils.getTongue_calibrate()!= null){
+                getTongue();
             }
             else{
-                String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
-                String image_name = "ana_face.png";
-                String full_path = String.format("%s/%s", image_path, image_name);
-                BitmapUtil.saveBitmap(full_path, bitmap, "jpg", 80);
-
-                Intent intent = new Intent(TongueActivity.this, MeituActivity.class);
-                intent.putExtra("path",full_path);
-                startActivityForResult(intent,200);
-
+                warningDialog.content("请先设置采集设备地址").show();
             }
+        }
+        else if (id == R.id.btn_tongue_ana){
+            String image_path = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
+            String image_name = "ana_face.png";
+            String full_path = String.format("%s/%s", image_path, image_name);
+            BitmapUtil.saveBitmap(full_path, bitmap, "jpg", 80);
+
+            Intent intent = new Intent(TongueActivity.this, TongueSeparationActivity.class);
+            intent.putExtra("path",full_path);
+            startActivityForResult(intent,200);
         }
         else if (id == R.id.tongue_toolbar_back){
 //            Intent intent = new Intent(TongueActivity.this, MainActivity.class);
@@ -288,6 +315,12 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
             else{
                 warningDialog.content("请先设置采集设备地址").show();
             }
+        }
+        else if (id == R.id.btn_tongue_album){
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            //设置请求码，以便我们区分返回的数据
+            startActivityForResult(intent, OPEN_ALBUM);
         }
     }
 
@@ -307,7 +340,7 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
                         super.run();
                         Message message = Message.obtain();
                         // 创建一个HTTP请求对象
-//                                HttpReqData req_data = new HttpReqData(urlInfo.User_URL);
+                        //HttpReqData req_data = new HttpReqData(urlInfo.User_URL);
 
                         HttpReqData req_data = new HttpReqData(urlUtils.getTongue_calibrate());
                         // 发送HTTP请求信息，并获得HTTP应答对象
@@ -339,4 +372,8 @@ public class TongueActivity extends BaseActivity implements OnClickListener {
 //        r.stop();
     }
 
+    //Uri转化为Bitmap
+    private Bitmap getBitmapFromUri(Uri uri) throws FileNotFoundException {
+        return BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+    }
 }

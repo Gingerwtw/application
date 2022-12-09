@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/nav_trending"
-        android:icon="@drawable/ic_menu_search"
+        android:icon="@drawable/icon_health"
         android:title="健康助诊" />
 
 <!--    <item-->
@@ -15,12 +15,12 @@
 
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_menu_news"
+        android:icon="@drawable/icon_konwledgegraph"
         android:title="知识图谱" />
 
     <item
         android:id="@+id/nav_lung"
-        android:icon="@drawable/ic_menu_person"
+        android:icon="@drawable/icon_personal"
         android:title="个人中心" />
 
 </menu>

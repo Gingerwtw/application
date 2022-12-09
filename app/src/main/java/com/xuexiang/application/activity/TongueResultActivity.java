@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -29,11 +30,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xuexiang.application.R;
 import com.xuexiang.application.core.BaseActivity;
 import com.xuexiang.application.utils.BitmapUtil;
+import com.xuexiang.application.utils.ImageSaveUtil;
+import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +46,9 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
 
     private Button show_coating;
     private Button hide_coating;
-    TextView tongue_result_constitution;
+    private Button save_report;
+    private TextView tongue_result_constitution;
+    private LinearLayout report;
 
 //    private JSONObject substance;
 //    private JSONObject coating;
@@ -67,6 +73,7 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
     int tongue_coating_color_count = 0;
 
     SharedPreferences imageShared;
+    private MaterialDialog.Builder warningDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,12 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
 
         tongue_result_constitution = findViewById(R.id.tongue_result_constitution);
         tongue_result_constitution.setOnClickListener(this);
+
+        report = findViewById(R.id.tongue_result_report);
+        save_report = findViewById(R.id.btn_tongue_result_save);
+        save_report.setOnClickListener(this);
+
+        warningDialog = new MaterialDialog.Builder(TongueResultActivity.this).positiveText("确认");
     }
 
 
@@ -95,6 +108,14 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
             bundle.putString("tongue_result_constitution",tongue_result_constitution.getText().toString());
             intent.putExtras(bundle);
             startActivity(intent);
+        }
+        else if (view.getId() == R.id.btn_tongue_result_save){
+            Boolean save_result = screenshotView();
+            if (save_result){
+                warningDialog.title("成功").content("分析报告保存成功，可在相册中查看").show();
+            }else{
+                warningDialog.title("错误").content("分析报告保存失败").show();
+            }
         }
     }
 
@@ -253,7 +274,6 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-
     private Bitmap Base64tobitmep(String base){
         Bitmap bitmap = null;
         try {
@@ -263,5 +283,18 @@ public class TongueResultActivity extends BaseActivity implements View.OnClickLi
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    private Boolean screenshotView() {
+//        View view = getWindow().getDecorView(); //截取当前屏幕
+        View view = report;
+        view.setBackgroundResource(R.drawable.lung_background);
+        // view.setDrawingCacheEnabled(true); // 设置缓存，可用于实时截图
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        // view.setDrawingCacheEnabled(false); // 清空缓存，可用于实时截图
+        view.setBackgroundResource(0);
+        return ImageSaveUtil.saveAlbum(this, bitmap, Bitmap.CompressFormat.JPEG, 80, true);
     }
 }

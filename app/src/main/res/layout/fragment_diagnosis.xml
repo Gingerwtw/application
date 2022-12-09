@@ -4,38 +4,106 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/login_background">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-                style="@style/SuperButton.Primary.Login"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/diagnosis_btn_tongue"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="30dp"
-                android:text="舌象"
-                android:textSize="16sp"/>
+<!--            <com.xuexiang.xui.widget.textview.supertextview.SuperButton-->
+<!--                style="@style/SuperButton.Primary.Login"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:id="@+id/diagnosis_btn_tongue"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:text="舌象"-->
+<!--                android:textSize="16sp"/>-->
 
-            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-                style="@style/SuperButton.Primary.Login"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/diagnosis_btn_face"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="30dp"
-                android:text="面象"
-                android:textSize="16sp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/diagnosis_btn_tongue"
+                    android:src="@drawable/icon_tongue"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="舌象"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
+
+<!--            <com.xuexiang.xui.widget.textview.supertextview.SuperButton-->
+<!--                style="@style/SuperButton.Primary.Login"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:id="@+id/diagnosis_btn_face"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:text="面象"-->
+<!--                android:textSize="16sp"/>-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/diagnosis_btn_face"
+                    android:src="@drawable/icon_face"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="面象"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/diagnosis_btn_lung_volume"
+                    android:src="@drawable/icon_lung"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="肺音"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -43,40 +111,83 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="80dp">
+            android:layout_marginTop="50dp">
 
-            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-                style="@style/SuperButton.Primary.Login"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/diagnosis_btn_lung_volume"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="30dp"
-                android:text="肺音"
-                android:textSize="16sp"/>
+<!--            <com.xuexiang.xui.widget.textview.supertextview.SuperButton-->
+<!--                style="@style/SuperButton.Primary.Login"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:id="@+id/diagnosis_btn_lung_volume"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:text="肺音"-->
+<!--                android:textSize="16sp"/>-->
 
-            <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-                style="@style/SuperButton.Primary.Login"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/diagnosis_btn_all"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="30dp"
-                android:text="综合"
-                android:textSize="16sp"/>
+<!--            <com.xuexiang.xui.widget.textview.supertextview.SuperButton-->
+<!--                style="@style/SuperButton.Primary.Login"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:id="@+id/diagnosis_btn_all"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:text="综合"-->
+<!--                android:textSize="16sp"/>-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/diagnosis_btn_all"
+                    android:src="@drawable/icon_diagnosis"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="综合"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/diagnosis_btn_pulse"
+                    android:src="@drawable/icon_pulse"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="脉象"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-            style="@style/SuperButton.Primary.Login"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:id="@+id/diagnosis_btn_pulse"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
-            android:text="脉象"
-            android:textSize="16sp"
-            android:layout_marginTop="60dp"/>
+<!--        <com.xuexiang.xui.widget.textview.supertextview.SuperButton-->
+<!--            style="@style/SuperButton.Primary.Login"-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:id="@+id/diagnosis_btn_pulse"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:text="脉象"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_marginTop="60dp"/>-->
 
     </LinearLayout>
 

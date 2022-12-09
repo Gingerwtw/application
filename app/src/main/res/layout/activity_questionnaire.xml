@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_brown">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             android:id="@+id/toolbar"
             android:gravity="center_vertical">
 
@@ -23,8 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/questionnaire_toolbar_back"
-                android:src="@drawable/ic_web_back"
-                android:layout_marginStart="10dp"/>
+                android:src="@drawable/toolbar_back"
+                android:layout_marginStart="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,44 +33,49 @@
                 android:text="问卷调查"
                 android:layout_marginStart="30dp"
                 android:textSize="23sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/brown"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您面色晦暗或容易出现褐斑吗？"
+                android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_first"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/radio_first_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="是"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <RadioButton
                     android:id="@+id/radio_first_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
                     android:text="否"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="100dp"
                     android:textSize="16sp" />
             </RadioGroup>
 
@@ -79,17 +84,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您容易有黑眼圈吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_second"
@@ -120,17 +129,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您有额部油脂分泌多的现象吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_third"
@@ -161,31 +174,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您面部或鼻部有油腻感或者油亮发光吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="10dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_forth"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/radio_forth_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="是"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:shadowColor="@color/brown"/>
 
                 <RadioButton
                     android:id="@+id/radio_forth_no"
@@ -202,17 +220,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您容易生痤疮或疮疖吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_fifth"
@@ -244,17 +266,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您的皮肤在不知不觉中会出现青紫瘀斑(皮下出血)吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="10dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_sixth"
@@ -286,17 +312,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您感到口苦或嘴里有异味吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_seventh"
@@ -328,17 +358,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您感到眼睛干涩吗？"
-
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_eighth"
@@ -370,17 +404,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您感到口舌干燥总想喝水吗？"
 
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_ninth"
@@ -412,17 +451,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/questionnaire_list_bg"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="10dp">
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="您容易精神紧张、焦虑不安吗？"
 
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingBottom="15dp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_tenth"
@@ -455,6 +499,9 @@
             android:id="@+id/btn_questionnaire_submit"
             style="@style/SuperButton.Primary.Login"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:sSelectorNormalColor="@color/brown"
+            app:sSelectorPressedColor="@color/brown"
             android:text="完成" />
 
     </LinearLayout>

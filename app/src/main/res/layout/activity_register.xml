@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/login_background">
 
 
 <!--    <androidx.appcompat.widget.AppCompatImageView-->
@@ -15,21 +16,22 @@
 <!--        app:srcCompat="@mipmap/ic_launcher" />-->
 
 
-    <TextView
-        style="@style/TextStyle.Title"
-        android:layout_width="match_parent"
-        android:layout_marginTop="100dp"
-        android:text="@string/title_register"
-        android:textSize="30sp" />
+<!--    <TextView-->
+<!--        style="@style/TextStyle.Title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:text="@string/title_register"-->
+<!--        android:textSize="30sp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="280dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="250dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginEnd="40dp"
-        android:orientation="vertical">
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/login_frame">
 
 <!--        <FrameLayout-->
 <!--            android:layout_width="match_parent"-->
@@ -61,7 +63,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp">
 
 <!--            <androidx.appcompat.widget.AppCompatImageView-->
 <!--                android:layout_width="wrap_content"-->
@@ -86,7 +91,9 @@
             android:id="@+id/fl_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="10dp">
 
 <!--            <androidx.appcompat.widget.AppCompatImageView-->
 <!--                android:layout_width="wrap_content"-->
@@ -113,7 +120,9 @@
             android:id="@+id/fl_password_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="10dp">
 
 <!--            <androidx.appcompat.widget.AppCompatImageView-->
 <!--                android:layout_width="wrap_content"-->
@@ -136,13 +145,17 @@
 
         </FrameLayout>
 
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+            android:id="@+id/btn_register"
+            style="@style/SuperButton.Primary.Login"
+            android:layout_marginTop="16dp"
+            app:sSelectorNormalColor="@color/brown"
+            app:sSelectorPressedColor="@color/brown"
+            android:text="@string/title_register" />
+
     </LinearLayout>
 
-    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-        android:id="@+id/btn_register"
-        style="@style/SuperButton.Primary.Login"
-        android:layout_marginTop="16dp"
-        android:text="@string/title_register" />
+
 
 
 </LinearLayout>

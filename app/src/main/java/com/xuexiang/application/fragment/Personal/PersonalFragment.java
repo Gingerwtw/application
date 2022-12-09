@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,7 +40,8 @@ import java.util.Objects;
 
 @Page(anim = CoreAnim.none)
 public class PersonalFragment extends Fragment implements View.OnClickListener {
-    RelativeLayout personal_more_information, personal_record, logout, change_url;
+    RelativeLayout personal_more_information, personal_record, change_url;
+    Button logout;
 
     SharedPreferences mShared;
     private UrlUtils UrlInfo = new UrlUtils();
@@ -57,7 +59,8 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         mShared = getActivity().getSharedPreferences("information", getActivity().MODE_PRIVATE);
 
         TextView username = getActivity().findViewById(R.id.personal_name);
-        ImageView gender = getActivity().findViewById(R.id.personal_gender_icon);
+        TextView gender = getActivity().findViewById(R.id.personal_gender);
+        ImageView gender_icon = getActivity().findViewById(R.id.personal_gender_icon);
         TextView phone = getActivity().findViewById(R.id.personal_phone);
         personal_more_information = getActivity().findViewById(R.id.personal_more_information);
         personal_record = getActivity().findViewById(R.id.personal_record);
@@ -67,7 +70,8 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         username.setText(mShared.getString("name",""));
         phone.setText(mShared.getString("phone",""));
         if (Objects.equals(mShared.getString("gender", ""), "女")){
-            gender.setImageResource(R.drawable.female);
+            gender_icon.setImageResource(R.drawable.female);
+            gender.setText("女");
         }
 
         personal_more_information.setOnClickListener(this);

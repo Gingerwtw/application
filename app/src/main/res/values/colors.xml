@@ -24,6 +24,11 @@
     <color name="app_color_theme_7">#5A9AEF</color> <!-- Blue Jeans -->
     <color name="app_color_theme_8">#AC8FEF</color> <!-- Lavender -->
     <color name="app_color_theme_9">#EE85C1</color> <!-- Pink Rose -->
+    <color name="brown">#AA8B5F</color>
+    <color name="light_brown">#FEF6E9</color>
+    <color name="deep_red">#D57C74</color>
+    <color name="middle_brown">#E3D5B8</color>
+    <color name="middle_grey">#F7F4ED</color>
 
     <color name="grey">#cccccc</color>
     <color name="deep_grey">#C0C0C0</color>

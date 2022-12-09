@@ -100,7 +100,7 @@
             android:name=".activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MeituActivity"
+            android:name=".activity.TongueSeparationActivity"
             android:exported="false" />
         <activity
             android:name=".activity.LoginForgetActivity"
